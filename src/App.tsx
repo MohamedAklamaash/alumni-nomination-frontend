@@ -3,6 +3,7 @@ import Landing from "./pages/Landing";
 import HomeNavLayout from "./layouts/HomeNav";
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/home" element={<Home/>}/>
         </Route> 
       </Routes>
     </Router>
