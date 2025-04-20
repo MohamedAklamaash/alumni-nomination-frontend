@@ -117,9 +117,12 @@ const NominationForm: FC = () => {
   useEffect(() => {
     const fetchUserId = async () => {
       try {
-        const res = await axios.get<{ id: string }>(`${BACKEND_URL}/users/me`, {
+        const res = await axios.get<{ id: string, isProfileComplete: boolean }>(`${BACKEND_URL}/users/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
+        if (!res.data.isProfileComplete) {
+          navigate('/profile')
+        }
         setuserId(res.data.id);
       } catch (err) {
         toast.error('Failed to load user ID');
