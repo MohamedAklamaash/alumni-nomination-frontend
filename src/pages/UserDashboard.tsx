@@ -117,9 +117,12 @@ const NominationForm: FC = () => {
   useEffect(() => {
     const fetchUserId = async () => {
       try {
-        const res = await axios.get<{ id: string, isProfileComplete: boolean }>(`${BACKEND_URL}/users/me`, {
+        const res = await axios.get<{ id: string, isProfileComplete: boolean, role: string }>(`${BACKEND_URL}/users/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
+        if (res.data.role === "ADMIN") {
+          navigate('/admin')
+        }
         if (!res.data.isProfileComplete) {
           navigate('/profile')
         }

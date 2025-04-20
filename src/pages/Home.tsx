@@ -9,20 +9,17 @@ import PhotoGallery from "@/components/Gallery";
 
 
 
-const toggle_options = ["2024","2023"];
+const toggle_options = ["2024", "2023"];
 
-
-
-
-const Landing = () => {
+const FoundationLanding = () => {
   const navigate = useNavigate();
   const glowControls = useAnimation();
   const criteriaRef = useRef<HTMLElement>(null);
   const winnersRef = useRef<HTMLElement>(null);
 
 
- 
-  const [currentYear,setCurrentYear] = useState<number>(0);
+
+  const [currentYear, setCurrentYear] = useState<number>(0);
 
   useEffect(() => {
     glowControls.start({
@@ -45,7 +42,7 @@ const Landing = () => {
         >
           <div className="text-2xl">
             {" "}
-            <span className="text-indigo-300">Distinguished</span> Alumni Awards
+            <span className="text-indigo-300">Foundation</span> Day 2025
           </div>
         </motion.h1>
         <nav className="space-x-6 sm:flex hidden items-center">
@@ -66,7 +63,7 @@ const Landing = () => {
             Past Winners
           </span>
           <button
-            onClick={()=>navigate("/login")}
+            onClick={() => navigate("/login")}
             className="px-4 py-1 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
           >Login</button>
         </nav>
@@ -104,8 +101,9 @@ const Landing = () => {
               }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
-              onClick={() =>
-                criteriaRef.current?.scrollIntoView({ behavior: "smooth" })
+              onClick={() => {
+                navigate("/distinguishedalumni");
+              }
               }
             >
               Nominate Now
@@ -114,18 +112,16 @@ const Landing = () => {
         </div>
       </main>
 
-
-
       <div className="flex flex-row bg-white gap-5 p-5 items-center justify-center">
-        {toggle_options.map((value,key) => {
-            return <motion.button key={key}
+        {toggle_options.map((value, key) => {
+          return <motion.button key={key}
 
             onClick={() => setCurrentYear(key)}
-            
-            whileHover={{scale:1.03,boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.12)",transition:{duration:0.2}}}
+
+            whileHover={{ scale: 1.03, boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.12)", transition: { duration: 0.2 } }}
             className={`cursor-pointer text-lg rounded-full py-3 px-8 border ${key === currentYear ? 'bg-indigo-600 text-white ' : ''}`}>
-                {value}
-            </motion.button>
+            {value}
+          </motion.button>
         })}
       </div>
 
@@ -150,11 +146,11 @@ const Landing = () => {
         <PhotoGallery />
       </section>
 
-        <Footer/>
+      <Footer />
 
-      
+
     </div>
   );
 };
 
-export default Landing;
+export default FoundationLanding;

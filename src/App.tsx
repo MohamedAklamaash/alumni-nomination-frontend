@@ -8,13 +8,15 @@ import VerifyOtp from "./pages/VerifyOTP";
 import Profile from "./pages/Profile";
 import NominationForm from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import FoundationLanding from "./pages/Home";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route element={<HomeNavLayout />}>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<FoundationLanding />} />
+          <Route path="/distinguishedalumni" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/profile" element={<Profile />} />
