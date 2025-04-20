@@ -10,9 +10,12 @@ const GuestCard = () => {
 
   return <div className="flex flex-col rounded-xl p-5 w-full ">
       
-      
+      <span className="text-4xl text-white font-bold mb-10 ">
+            Former Chief Guest
+          </span>
       <div className="flex flex-col gap-20 lg:flex-row items-center w-full">
 
+        
         <div className="w-40 sm:w-60 md:w-80 lg:w-96 lg:my-10 aspect-square rounded-full overflow-hidden border shadow-md">
           <img
             src={chiefguest.guest.avatar}
@@ -22,7 +25,7 @@ const GuestCard = () => {
         </div>
 
         <div className="flex flex-col w-full lg:w-[65%]">
-          <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200">
+          <span className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200">
             {chiefguest.guest.name}
           </span>
           <p className="flex flex-col gap-2 my-10 text-justify mr-10 text-md lg:text-xl text-gray-300">

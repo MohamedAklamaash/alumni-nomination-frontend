@@ -8,6 +8,7 @@ import PhotoGallery from "@/components/Gallery";
 import { useChiefGuestContext } from "@/hooks/useChiefGuest";
 import chief_guest_24 from "@/constants/chiefguest2024";
 import chief_guest_23 from "@/constants/chiefguest2023";
+import { assets } from "@/assets/assets";
 
 
 
@@ -82,7 +83,7 @@ const FoundationLanding = () => {
 
       {/* Main Hero Section */}
       <main className="relative z-10 flex items-center justify-center min-h-screen px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-8xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center items-center max-w-8xl md:w-[80%]">
           {/* Left Content */}
           <div className="space-y-6">
             <motion.h2
@@ -139,9 +140,16 @@ const FoundationLanding = () => {
 
       <section
         id="milestone"
-        className="min-h-screen bg-platinum-500"
+        className="flex flex-col items-center justify-center z-1000 bg-white "
       >
         <Milestones />
+        <div className="flex flex-col w-[80%]">
+          <h2 className="text-4xl font-bold text p-6">Invitation</h2>
+          <div className="flex flex-row items-center w-full justify-center mb-10 ">
+            <img src={currentYear === 0 ? assets.invitation_24 : assets.invitation_23} alt="Invitation" className="w-[50rem]"/>
+          </div>
+          
+        </div>
       </section>
 
 

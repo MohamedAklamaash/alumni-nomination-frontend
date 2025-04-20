@@ -9,7 +9,7 @@ const contact_link = "https://psgtech.edu/cont.php";
 
 const Footer = () => {
 
-    return <footer className="flex flex-col mt-2 justify-center items-center bg-platinum-500">
+    return <footer className="flex flex-col mt-2 justify-center items-center bg-gradient-to-bl from-indigo-800 via-blue-900 to-gray-800 text-white">
 		<div className="flex flex-col lg:flex-row lg:my-10 p-5 items-center justify-center gap-10 lg:gap-50 ">
         
 				<div className="flex flex-col px-10 py-5 gap-5 ">
@@ -66,7 +66,7 @@ const Footer = () => {
 				</div>
 				
     </div>
-		<div className="relative z-10 p-6 border-t w-[95%] border-black text-center bg-platinum-500">
+		<div className="relative z-10 p-6 border-t w-[95%] border-white text-center ">
 			<p>© 2025 PSG College of Technology. All rights reserved.</p>
 		</div>
 		
