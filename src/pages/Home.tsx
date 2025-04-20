@@ -11,12 +11,9 @@ import chief_guest_23 from "@/constants/chiefguest2023";
 
 
 
-const toggle_options = ["2024","2023"];
+const toggle_options = ["2024", "2023"];
 
-
-
-
-const Landing = () => {
+const FoundationLanding = () => {
   const navigate = useNavigate();
   const glowControls = useAnimation();
   const criteriaRef = useRef<HTMLElement>(null);
@@ -77,7 +74,7 @@ const Landing = () => {
             Past Winners
           </span>
           <button
-            onClick={()=>navigate("/login")}
+            onClick={() => navigate("/login")}
             className="px-4 py-1 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
           >Login</button>
         </nav>
@@ -115,8 +112,9 @@ const Landing = () => {
               }}
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
-              onClick={() =>
-                criteriaRef.current?.scrollIntoView({ behavior: "smooth" })
+              onClick={() => {
+                navigate("/distinguishedalumni");
+              }
               }
             >
               Nominate Now
@@ -125,11 +123,9 @@ const Landing = () => {
         </div>
       </main>
 
-
-
       <div className="flex flex-row bg-white gap-5 p-5 items-center justify-center">
-        {toggle_options.map((value,key) => {
-            return <motion.button key={key}
+        {toggle_options.map((value, key) => {
+          return <motion.button key={key}
 
             onClick={() => setCurrentYear(key)}
             
@@ -161,11 +157,11 @@ const Landing = () => {
         <PhotoGallery />
       </section>
 
-        <Footer/>
+      <Footer />
 
-      
+
     </div>
   );
 };
 
-export default Landing;
+export default FoundationLanding;
