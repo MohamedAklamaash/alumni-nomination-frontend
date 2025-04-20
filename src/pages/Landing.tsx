@@ -91,7 +91,7 @@ const Landing = () => {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-4 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
               onClick={() =>
-                criteriaRef.current?.scrollIntoView({ behavior: "smooth" })
+                navigate("/login")
               }
             >
               Nominate Now
