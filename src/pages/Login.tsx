@@ -2,6 +2,8 @@ import { useState } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { BACKEND_URL } from "@/constants/backend";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +14,66 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  return  (
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const payload =
+      state === "Sign Up"
+        ? {
+          email,
+          password,
+          firstName: name,
+        }
+        : {
+          email,
+          password,
+        };
+
+    const url =
+      state === "Sign Up"
+        ? `${BACKEND_URL}/auth/signup`
+        : `${BACKEND_URL}/auth/signin`;
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(
+          state === "Sign Up"
+            ? "Account created successfully!"
+            : "Logged in successfully!"
+        );
+
+        if (state === "Sign Up") {
+          navigate("/verify-otp", { state: { email } });
+        }
+        if (state === "Login") {
+          localStorage.setItem("access_token", data.access_token);
+          // a token is returned in the response
+          navigate("/profile"); 
+        } else {
+          setState("Login");
+        }
+      } else {
+        toast.error(data.message || "Something went wrong.");
+      }
+    } catch (err) {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
     <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-gradient-to-br from-blue-200 to-purple-400">
       <div className="bg-slate-900 p-10 rounded-lg shadow-lg w-full sm:w-96 text-indigo-300 text-sm">
         <ToastContainer />
@@ -24,7 +85,7 @@ const Login = () => {
             ? "Create an account to get started."
             : "Login to your account."}
         </p>
-        <form onSubmit={()=>alert("Sign In")}>
+        <form onSubmit={handleSubmit}>
           {state === "Sign Up" && (
             <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5c]">
               <img src={assets.person_icon} alt="Person Icon" />
@@ -62,12 +123,14 @@ const Login = () => {
               value={password}
             />
           </div>
+
           <p
             onClick={() => navigate("/reset-password")}
             className="mb-4 text-indigo-500 cursor-pointer"
           >
             Forgot Password?
           </p>
+
           <button
             type="submit"
             className="w-full py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-900 text-white font-medium disabled:opacity-50"
@@ -91,6 +154,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
