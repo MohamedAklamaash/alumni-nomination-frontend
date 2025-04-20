@@ -91,10 +91,35 @@ const photos: Photo[] = [
 ];
 
 const PhotoGallery: React.FC = () => {
-  // Split photos into three columns
-  const column1 = photos.filter((_, index) => index % 3 === 0);
-  const column2 = photos.filter((_, index) => index % 3 === 1);
-  const column3 = photos.filter((_, index) => index % 3 === 2);
+  // State to track window size
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 0
+  );
+  
+  // Split photos based on screen size
+  const getColumnDistribution = () => {
+    if (windowWidth < 640) { // Small screens - 1 column
+      return {
+        column1: photos,
+        column2: [],
+        column3: []
+      };
+    } else if (windowWidth < 1024) { // Medium screens - 2 columns
+      return {
+        column1: photos.filter((_, index) => index % 2 === 0),
+        column2: photos.filter((_, index) => index % 2 === 1),
+        column3: []
+      };
+    } else { // Large screens - 3 columns
+      return {
+        column1: photos.filter((_, index) => index % 3 === 0),
+        column2: photos.filter((_, index) => index % 3 === 1),
+        column3: photos.filter((_, index) => index % 3 === 2)
+      };
+    }
+  };
+  
+  const { column1, column2, column3 } = getColumnDistribution();
   
   // Refs for each column container
   const col1Ref = useRef<HTMLDivElement>(null);
@@ -108,8 +133,22 @@ const PhotoGallery: React.FC = () => {
   const [scrollPositions, setScrollPositions] = useState<number[]>([0, 0, 0]);
   const animationFrameRef = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
-  
 
+  // Listen for window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Initialize width on component mount
+    handleResize();
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
+  // Animation effect
   useEffect(() => {
     const animate = (timestamp: number) => {
       if (!lastTimestampRef.current) {
@@ -122,18 +161,28 @@ const PhotoGallery: React.FC = () => {
       lastTimestampRef.current = timestamp;
       
       // Update scroll positions for each column
-      const newPositions = scrollPositions.map((pos, idx) => {
-        const speed = speeds[idx];
-        const delta = speed * deltaTime / 16; // Normalize by 60fps
-        return pos + delta;
-      });
+      const newPositions = [...scrollPositions];
       
-      const columns = [col1Ref.current, col2Ref.current, col3Ref.current];
+      // Get active columns based on screen size
+      let activeColumns: (HTMLDivElement | null)[] = [];
       
-      columns.forEach((col, idx) => {
+      if (windowWidth < 640) {
+        activeColumns = [col1Ref.current];
+      } else if (windowWidth < 1024) {
+        activeColumns = [col1Ref.current, col2Ref.current];
+      } else {
+        activeColumns = [col1Ref.current, col2Ref.current, col3Ref.current];
+      }
+      
+      // Update and apply scroll positions only for active columns
+      activeColumns.forEach((col, idx) => {
         if (col) {
+          const speed = speeds[idx];
+          const delta = speed * deltaTime / 16; // Normalize by 60fps
+          newPositions[idx] += delta;
+          
           col.scrollTop = newPositions[idx];
-
+          
           const maxScroll = col.scrollHeight / 2;
           if (newPositions[idx] >= maxScroll) {
             newPositions[idx] = 0;
@@ -147,6 +196,10 @@ const PhotoGallery: React.FC = () => {
     };
     
     // Start animation
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    
     animationFrameRef.current = requestAnimationFrame(animate);
     
     // Cleanup
@@ -155,25 +208,28 @@ const PhotoGallery: React.FC = () => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [scrollPositions]);
+  }, [windowWidth]); // Re-initialize animation when window size changes
   
-
   const duplicateImages = (columnImages: Photo[]) => {
     return [...columnImages, ...columnImages];
   };
   
   return (
-    <div className="relative bg-white min-h-screen px-6 py-10 overflow-hidden">
+    <div className="relative bg-white min-h-screen px-4 sm:px-6 py-10 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100" />
       
-      <div className="relative z-10 max-w-[80%] mx-auto">
-        <h1 className="text-3xl font-bold text-gray-800 my-8">Photo Gallery</h1>
+      <div className="relative z-10 w-full sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] mx-auto">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 my-4 sm:my-8 text-center lg:text-left">Photo Gallery</h1>
         
-        <div className="grid grid-cols-3 gap-4 h-[80rem]">
-          {/* Column 1 */}
+        {/* Responsive grid layout */}
+        <div className={`grid gap-4 h-[50rem] sm:h-[60rem] overflow-auto scroll-none md:h-[70rem] lg:h-[80rem] 
+                         ${windowWidth < 640 ? 'grid-cols-1' : 
+                           windowWidth < 1024 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+          
+          {/* Column 1 - Always visible */}
           <div 
             ref={col1Ref}
-            className="overflow-hidden h-full" 
+            className=" h-full" 
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             <div className="space-y-4 pb-4">
@@ -183,49 +239,56 @@ const PhotoGallery: React.FC = () => {
                     src={photo.src} 
                     alt={`Image ${idx}`} 
                     className="w-full object-cover"
+                    loading="lazy"
                   />
                 </div>
               ))}
             </div>
           </div>
           
-          {/* Column 2 */}
-          <div 
-            ref={col2Ref}
-            className="overflow-hidden h-full" 
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            <div className="space-y-4 pb-4">
-              {duplicateImages(column2).map((photo, idx) => (
-                <div key={`col2-${idx}`} className="rounded-lg overflow-hidden shadow-md">
-                  <img 
-                    src={photo.src} 
-                    alt={`Image ${idx}`} 
-                    className="w-full object-cover"
-                  />
-                </div>
-              ))}
+          {/* Column 2 - Visible on medium screens and up */}
+          {windowWidth >= 640 && (
+            <div 
+              ref={col2Ref}
+              className=" h-full" 
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <div className="space-y-4 pb-4">
+                {duplicateImages(column2).map((photo, idx) => (
+                  <div key={`col2-${idx}`} className="rounded-lg overflow-hidden shadow-md">
+                    <img 
+                      src={photo.src} 
+                      alt={`Image ${idx}`} 
+                      className="w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           
-          {/* Column 3 */}
-          <div 
-            ref={col3Ref}
-            className="overflow-hidden h-full" 
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            <div className="space-y-4 pb-4">
-              {duplicateImages(column3).map((photo, idx) => (
-                <div key={`col3-${idx}`} className="rounded-lg overflow-hidden shadow-md">
-                  <img 
-                    src={photo.src} 
-                    alt={`Image ${idx}`} 
-                    className="w-full object-cover"
-                  />
-                </div>
-              ))}
+          {/* Column 3 - Visible on large screens only */}
+          {windowWidth >= 1024 && (
+            <div 
+              ref={col3Ref}
+              className="overflow-hidden h-full" 
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <div className="space-y-4 pb-4">
+                {duplicateImages(column3).map((photo, idx) => (
+                  <div key={`col3-${idx}`} className="rounded-lg overflow-hidden shadow-md">
+                    <img 
+                      src={photo.src} 
+                      alt={`Image ${idx}`} 
+                      className="w-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

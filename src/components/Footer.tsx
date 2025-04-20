@@ -10,12 +10,12 @@ const contact_link = "https://psgtech.edu/cont.php";
 const Footer = () => {
 
     return <footer className="flex flex-col mt-2 justify-center items-center bg-platinum-500">
-		<div className="flex flex-col md:flex-row md:my-10 p-5 items-center justify-center gap-10 md:gap-50 ">
+		<div className="flex flex-col lg:flex-row lg:my-10 p-5 items-center justify-center gap-10 lg:gap-50 ">
         
 				<div className="flex flex-col px-10 py-5 gap-5 ">
 
 
-					<a href={'https://psgtech.edu/'} className="my-5">
+					<a href={'https://psgtech.edu/'} className="my-5 z-1000">
 						<img src={assets.psg_logo} className="h-[5rem]  border border-gray" alt="Logo"/>
 					</a>
 					
@@ -58,9 +58,9 @@ const Footer = () => {
 				<div className="flex flex-col border border-black">
 						<a 
 							href="https://www.google.com/maps/place/PSG+College+Of+Technology/@11.024689,77.002127,13z/data=!4m6!3m5!1s0x3ba8582f1435fa59:0x137d95bfd8909293!8m2!3d11.0242544!4d77.0028228!16zL20vMDJ6Nmd4?hl=en-US&entry=ttu&g_ep=EgoyMDI1MDQxNC4xIKXMDSoASAFQAw%3D%3D"
-							className="h-[20rem] w-[30rem]"
+							className="h-[10rem] w-[15rem] md:h-[20rem] md:w-[30rem] z-1000"
 							>
-							<img src={"#"} alt=""/>
+							<img src={assets.map} alt="" className="w-full h-full object-fit"/>
 						</a>
 
 				</div>

@@ -5,7 +5,9 @@ import FormerChiefGuest from "@/components/FormerChiefGuest";
 import Milestones from "@/components/MileStones";
 import Footer from "@/components/Footer";
 import PhotoGallery from "@/components/Gallery";
-
+import { useChiefGuestContext } from "@/hooks/useChiefGuest";
+import chief_guest_24 from "@/constants/chiefguest2024";
+import chief_guest_23 from "@/constants/chiefguest2023";
 
 
 
@@ -23,6 +25,15 @@ const Landing = () => {
 
  
   const [currentYear,setCurrentYear] = useState<number>(0);
+  const chiefguest = useChiefGuestContext();
+
+
+
+  useEffect(() => {
+    console.log(currentYear);
+    currentYear === 0 ? chiefguest.setGuest(chief_guest_24) : chiefguest.setGuest(chief_guest_23);
+  },[currentYear])
+
 
   useEffect(() => {
     glowControls.start({
@@ -45,7 +56,7 @@ const Landing = () => {
         >
           <div className="text-2xl">
             {" "}
-            <span className="text-indigo-300">Distinguished</span> Alumni Awards
+            <span className="text-indigo-300">Founders</span> Day 2025
           </div>
         </motion.h1>
         <nav className="space-x-6 sm:flex hidden items-center">
@@ -123,7 +134,7 @@ const Landing = () => {
             onClick={() => setCurrentYear(key)}
             
             whileHover={{scale:1.03,boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.12)",transition:{duration:0.2}}}
-            className={`cursor-pointer text-lg rounded-full py-3 px-8 border ${key === currentYear ? 'bg-indigo-600 text-white ' : ''}`}>
+            className={`z-1000 cursor-pointer text-lg rounded-full py-3 px-8 border ${key === currentYear ? 'bg-indigo-600 text-white ' : ''}`}>
                 {value}
             </motion.button>
         })}
