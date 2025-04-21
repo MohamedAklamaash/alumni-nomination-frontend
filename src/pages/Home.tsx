@@ -9,8 +9,15 @@ import { useChiefGuestContext } from "@/hooks/useChiefGuest";
 import chief_guest_24 from "@/constants/chiefguest2024";
 import chief_guest_23 from "@/constants/chiefguest2023";
 import { assets } from "@/assets/assets";
+import { Menu } from "lucide-react";
 
 
+const pages = [
+  {
+    title:"Distingushed Alumini",
+    link:"/distinguishedalumni"
+  }
+];
 
 const toggle_options = ["2024", "2023"];
 
@@ -23,6 +30,7 @@ const FoundationLanding = () => {
 
 
   const [currentYear, setCurrentYear] = useState<number>(0);
+  const [isMenuOpen,setIsMenuOpen] = useState<boolean>(false);
   const chiefguest = useChiefGuestContext();
 
 
@@ -58,27 +66,38 @@ const FoundationLanding = () => {
             </span> Day 2025
           </div>
         </motion.h1>
-        <nav className="space-x-6 sm:flex hidden items-center">
-          <span
-            onClick={() =>
-              criteriaRef.current?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="text-white font-semibold hover:text-indigo-300 transition-all cursor-pointer"
-          >
-            Criteria
-          </span>
-          <span
-            onClick={() =>
-              winnersRef.current?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="text-white font-semibold hover:text-indigo-300 transition-all cursor-pointer"
-          >
-            Past Winners
-          </span>
-          <button
-            onClick={() => navigate("/login")}
-            className="px-4 py-1 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
-          >Login</button>
+        <nav className="space-x-6 sm:flex items-center">
+
+          <Menu size={36} className="block md:hidden text-white hover:bg-gray-500 cursor-pointer rounded-md p-1" onClick={() => setIsMenuOpen(prev => !prev)}/>
+          
+          {isMenuOpen && <div className=" absolute w-[15rem] right-0 p-2 border rounded-xl bg-white">
+              {pages.map((value,key) => {
+                return <motion.div key={key}
+                whileHover={{scale:1.03,transition:{duration:0.2}}}
+                whileTap={{scale:0.96,transition:{duration:0.3}}}
+                className="p-2 rounded-lg cursor-pointer z-1000 hover:bg-gray-100"
+                onClick={() => navigate(value.link)}
+                >
+                  {value.title}
+                </motion.div>
+              })}
+
+            </div>}
+
+          <motion.button
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 10px rgba(147, 197, 253, 0.5)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="hidden md:block px-8 py-2 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
+              onClick={() => {
+                navigate("/distinguishedalumni");
+              }
+              }
+            >
+              Distinguished Alumni
+          </motion.button>
         </nav>
       </header>
 
@@ -107,20 +126,7 @@ const FoundationLanding = () => {
             >
               Recognizing alumni who have excelled in their fields.
             </motion.p>
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 10px rgba(147, 197, 253, 0.5)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
-              onClick={() => {
-                navigate("/distinguishedalumni");
-              }
-              }
-            >
-              Nominate Now
-            </motion.button>
+            
           </div>
         </div>
       </main>
@@ -163,7 +169,7 @@ const FoundationLanding = () => {
       </section>
 
 
-      <section className="bg-white py-10">
+      <section className="bg-white py-10 z-1000">
         <div className="flex flex-col items-center justify-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Highlights Video</h2>
           <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
