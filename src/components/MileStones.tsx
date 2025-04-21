@@ -5,39 +5,124 @@ const Milestones = () => {
 
   const timelineData = [
     {
-      date: 'January 2024',
-      title: 'Project Inception',
-      description: 'Initial concept development and market research.'
+      date: '1951',
+      title: 'BE Electrical & Electronics & Mechanical Engg.',
+      description: 'Bachelor of Engineering in Mechanical Engineering introduced.'
     },
     {
-      date: 'February 2024',
-      title: 'Design Phase',
-      description: 'UI/UX design and prototyping for stakeholder approval.'
+      date: '1953',
+      title: 'BE Civil Engg.',
+      description: 'Bachelor of Engineering in Civil Engineering introduced.'
     },
     {
-      date: 'March 2024',
-      title: 'Development Kickoff',
-      description: 'Started coding the core functionality and infrastructure.'
+      date: '1962',
+      title: 'ME Structural Engg. & Engineering Design',
+      description: 'Master’s programs in Structural Engineering and Engineering Design introduced.'
     },
     {
-      date: 'May 2024',
-      title: 'Alpha Testing',
-      description: 'Internal testing phase with focus groups.'
+      date: '1964',
+      title: 'BE Manufacturing Engg.',
+      description: 'Bachelor of Engineering in Manufacturing Engineering introduced.'
     },
     {
-      date: 'July 2024',
-      title: 'Beta Release',
-      description: 'Limited public release to gather user feedback.'
+      date: '1965',
+      title: 'BE Textile Technology',
+      description: 'Bachelor of Engineering in Textile Technology introduced.'
     },
     {
-      date: 'September 2024',
-      title: 'Feature Expansion',
-      description: 'Added enhanced features based on beta user feedback.'
+      date: '1968',
+      title: 'BE ECE & Metallurgical Engg.',
+      description: 'Electronics & Communication Engineering and Metallurgical Engineering programs introduced.'
     },
     {
-      date: 'October 2024',
-      title: 'Public Launch',
-      description: 'Official product release with marketing campaign.'
+      date: '1971',
+      title: 'ME Textile Tech, MBA & BE Applied Science',
+      description: 'Specialized shuttleless weaving curriculum and Applied Science introduced.'
+    },
+    {
+      date: '1971',
+      title: 'ME Control Systems',
+      description: 'Master of Engineering in Control Systems introduced.'
+    },
+    {
+      date: '1975',
+      title: 'BE Production Engg. & MSc Applied Mathematics',
+      description: 'Bachelor of Engineering in Production and MSc in Applied Mathematics introduced.'
+    },
+    {
+      date: '1976',
+      title: 'ME CSE & Industrial Metallurgy',
+      description: 'Master’s programs in Computer Science & Engineering and Industrial Metallurgy introduced.'
+    },
+    {
+      date: '1978',
+      title: 'ME Industrial Engineering',
+      description: 'Bachelor of Engineering in Industrial Engineering introduced.'
+    },
+    {
+      date: '1983',
+      title: 'MCA, MSc Applied Maths, MSc (2Y) EEE',
+      description: 'Master of Computer Applications and Electrical & Electronics Engineering introduced.'
+    },
+    {
+      date: '1985',
+      title: 'BSc Computer Systems & Design',
+      description: 'Bachelor of Science in Computer Systems & Design introduced.'
+    },
+    {
+      date: '1987',
+      title: 'BE Computer Science & Engg.',
+      description: 'Bachelor of Engineering in Computer Science introduced.'
+    },
+    {
+      date: '1997',
+      title: 'Msc. Software Systems',
+      description: 'Bachelor of Engineering in Software Systems introduced.'
+    },
+    {
+      date: '1998',
+      title: 'ME Power Electronics & Drives',
+      description: 'Bachelor of Engineering in Power Electronics introduced.'
+    },
+    {
+      date: '1999',
+      title: 'BE Information Technology & Automobile Engg.',
+      description: 'Biomedical and Automobile Engineering introduced.'
+    },
+    {
+      date: '2000',
+      title: 'BE Biotechnology & ME VLSI Design',
+      description: 'Programs in Biotechnology and VLSI Design introduced.'
+    },
+    {
+      date: '2002',
+      title: 'BE(SW) Production Engg.',
+      description: 'Information Technology in Production Engineering introduced.'
+    },
+    {
+      date: '2006',
+      title: 'BE Biomedical Engg, BE Fashion Technology & ME Biotechnology',
+      description: 'Accredited Biomedical Engineering and Nanoscience introduced.'
+    },
+    {
+      date: '2007',
+      title: 'BE ICE & Msc. TCS',
+      description: 'Instrumentation & Control Engineering and Master in CSE introduced.'
+    },
+    {
+      date: '2009',
+      title: 'ME Automotive Engg. & ME Embedded & Real Time Systems',
+      description: 'Programs in Automotive and Embedded & Real-Time Systems introduced.'
+    },
+    {
+      date: '2011',
+      title: 'BE Robotics & Automation Engg.',
+      description: 'Bachelor of Engineering in Robotics & Automation introduced.'
+    },
+    {
+      date: '2023',
+      title: 'BE CSE (AI & ML)',
+      description: 'Artificial Intelligence & Machine Learning specialization in Computer Science introduced.'
     }
   ];
 
