@@ -21,8 +21,8 @@ const FoundationLanding = () => {
   const winnersRef = useRef<HTMLElement>(null);
 
 
- 
-  const [currentYear,setCurrentYear] = useState<number>(0);
+
+  const [currentYear, setCurrentYear] = useState<number>(0);
   const chiefguest = useChiefGuestContext();
 
 
@@ -30,7 +30,7 @@ const FoundationLanding = () => {
   useEffect(() => {
     console.log(currentYear);
     currentYear === 0 ? chiefguest.setGuest(chief_guest_24) : chiefguest.setGuest(chief_guest_23);
-  },[currentYear])
+  }, [currentYear])
 
 
   useEffect(() => {
@@ -129,11 +129,11 @@ const FoundationLanding = () => {
           return <motion.button key={key}
 
             onClick={() => setCurrentYear(key)}
-            
-            whileHover={{scale:1.03,boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.12)",transition:{duration:0.2}}}
+
+            whileHover={{ scale: 1.03, boxShadow: "1px 4px 8px rgba(0, 0, 0, 0.12)", transition: { duration: 0.2 } }}
             className={`z-1000 cursor-pointer text-lg rounded-full py-3 px-8 border ${key === currentYear ? 'bg-indigo-600 text-white ' : ''}`}>
-                {value}
-            </motion.button>
+            {value}
+          </motion.button>
         })}
       </div>
 
@@ -146,9 +146,9 @@ const FoundationLanding = () => {
         <div className="flex flex-col w-[80%]">
           <h2 className="text-4xl font-bold text p-6">Invitation</h2>
           <div className="flex flex-row items-center w-full justify-center mb-10 ">
-            <img src={currentYear === 0 ? assets.invitation_24 : assets.invitation_23} alt="Invitation" className="w-[50rem]"/>
+            <img src={currentYear === 0 ? assets.invitation_24 : assets.invitation_23} alt="Invitation" className="w-[50rem]" />
           </div>
-          
+
         </div>
       </section>
 
@@ -159,6 +159,27 @@ const FoundationLanding = () => {
         className="min-h-screen bg-platinum-500"
       >
         <FormerChiefGuest />
+      </section>
+
+
+      <section className="bg-white py-10">
+        <div className="flex flex-col items-center justify-center px-4">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">Highlights Video</h2>
+          <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
+            <iframe
+              src={
+                currentYear === 0
+                  ? "https://www.youtube.com/embed/oGKBokED8qM"
+                  : "https://www.youtube.com/embed/ZISPz-Ll-vo"
+              }
+              title="Founders Day Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+        </div>
       </section>
 
       <section id="past-winners" ref={winnersRef}>
