@@ -54,7 +54,8 @@ const FoundationLanding = () => {
         >
           <div className="text-2xl">
             {" "}
-            <span className="text-indigo-300">Founders</span> Day 2025
+            <span className="text-indigo-300">Foundation
+            </span> Day 2025
           </div>
         </motion.h1>
         <nav className="space-x-6 sm:flex hidden items-center">
