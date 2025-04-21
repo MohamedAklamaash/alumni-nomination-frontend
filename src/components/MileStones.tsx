@@ -61,7 +61,7 @@ const Milestones = () => {
     },
     {
       date: '1983',
-      title: 'MCA, MSc Applied Maths, MSc (2Y) EEE',
+      title: 'MCA, MSc Applied Maths, BE. EEE',
       description: 'Master of Computer Applications and Electrical & Electronics Engineering introduced.'
     },
     {
@@ -107,7 +107,7 @@ const Milestones = () => {
     {
       date: '2007',
       title: 'BE ICE & Msc. TCS',
-      description: 'Instrumentation & Control Engineering and Master in CSE introduced.'
+      description: 'Instrumentation & Control Engineering and Master in TCS introduced.'
     },
     {
       date: '2009',
@@ -118,6 +118,16 @@ const Milestones = () => {
       date: '2011',
       title: 'BE Robotics & Automation Engg.',
       description: 'Bachelor of Engineering in Robotics & Automation introduced.'
+    },
+    {
+      date: '2015',
+      title: 'MSc Data Science & Msc. FDM',
+      description: 'Master of Science in Data Science and Fashion Design & Management introduced.'
+    },
+    {
+      date: '2020',
+      title: 'MSc Cyber security ',
+      description: 'Masters in Cyber Security introduced.'
     },
     {
       date: '2023',
