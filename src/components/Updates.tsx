@@ -18,25 +18,25 @@ const sampleUpdates: Update[] = [
         date: new Date("2025-04-15"),
         title: "Foundation Day Celebrations",
         content:
-            "Join us for the Foundation Day celebrations on April 25, 2025. The event will include a keynote speech by a distinguished alumnus, followed by various cultural programs and a gala dinner.",
+            "Join us for the Foundation Day celebrations on August, 2025. The event will include a keynote speech by a distinguished alumnus, followed by various cultural programs and a gala dinner.",
         category: "Distinguished_Alumni",
     },
-    {
-        id: "2",
-        date: new Date("2025-04-10"),
-        title: "New Research Grant Awarded",
-        content:
-            "The university has been awarded a new research grant for the development of sustainable energy solutions. A seminar will be held on April 20 to discuss the project.",
-        category: "Foundation_Day",
-    },
-    {
-        id: "3",
-        date: new Date("2025-04-05"),
-        title: "Campus Recruitment Drive",
-        content:
-            "We are excited to announce the upcoming campus recruitment drive on April 30, 2025. Several top companies will be participating. Make sure to register in advance.",
-        category: "Foundation_Day",
-    }
+    // {
+    //     id: "2",
+    //     date: new Date("2025-04-10"),
+    //     title: "New Research Grant Awarded",
+    //     content:
+    //         "The university has been awarded a new research grant for the development of sustainable energy solutions. A seminar will be held on April 20 to discuss the project.",
+    //     category: "Foundation_Day",
+    // },
+    // {
+    //     id: "3",
+    //     date: new Date("2025-04-05"),
+    //     title: "Campus Recruitment Drive",
+    //     content:
+    //         "We are excited to announce the upcoming campus recruitment drive on April 30, 2025. Several top companies will be participating. Make sure to register in advance.",
+    //     category: "Foundation_Day",
+    // }
 ]
 
 const categoryColors: Record<string, string> = {
