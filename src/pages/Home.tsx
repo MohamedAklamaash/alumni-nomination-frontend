@@ -193,7 +193,7 @@ const FoundationLanding = () => {
       </section>
 
       {/* Highlights Video */}
-      <section className="bg-white py-10">
+      <section className=" relative z-10 bg-white py-10">
         <div className="flex flex-col items-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Highlights Video</h2>
             <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
