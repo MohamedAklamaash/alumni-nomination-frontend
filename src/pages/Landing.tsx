@@ -52,7 +52,7 @@ const Landing = () => {
             Past Winners
           </span>
           <button
-            onClick={()=>navigate("/login")}
+            onClick={() => navigate("/login")}
             className="px-4 py-1 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
           >Login</button>
         </nav>
@@ -81,7 +81,7 @@ const Landing = () => {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="text-lg text-gray-300"
             >
-              Recognizing alumni who have excelled in their fields.
+              Rooted in Legacy, Rising with Vision.
             </motion.p>
             <motion.button
               whileHover={{

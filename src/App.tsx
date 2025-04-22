@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import NominationForm from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import FoundationLanding from "./pages/Home";
+import AboutCollege from "./pages/AboutCollege";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/about-college" element={<AboutCollege />} />
         </Route>
       </Routes>
     </Router>

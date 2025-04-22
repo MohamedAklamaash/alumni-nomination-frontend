@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const WinnerCard = ({
   name,
@@ -17,18 +17,22 @@ const WinnerCard = ({
   degree: string;
   profileUrl?: string;
 }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <motion.div className="w-[380px] bg-gray-200 p-6 rounded-md shadow-md relative z-20">
       <div className="absolute -top-12 right-5 rounded-md z-30">
-        <img src="https://placehold.co/80" height={80} width={80} alt={name} />
+        <img src={profileUrl || "https://placehold.co/80"} height={80} width={80} alt={name} />
       </div>
       <div className="flex flex-col justify-start">
         <div
           className="flex items-center gap-2 cursor-pointer"
-          onClick={() => (profileUrl ? navigate(profileUrl) : null)}
-        >
+          onClick={() => {
+            if (profileUrl) {
+              window.open(profileUrl, "_blank");
+            }
+          }}
+          >
           <span className="font-semibold leading-snug text-xl text-gray-800">
             {name}
           </span>
@@ -98,7 +102,7 @@ const winners = [
     company: "Uttarakhand",
     qualification: "",
     degree: "1995 B.E (Electrical and Electronics Engineering)",
-    profileUrl: "", // no public image found—please provide if available
+    profileUrl: "https://psgtech.edu/distinalumni/assets/images/2023awardees/Senthil%20Avoodai_new.jpg", // no public image found—please provide if available
   },
   {
     name: "Mrs. Anandi Ramalingam",
@@ -168,15 +172,15 @@ const PastWinners = () => {
       </div>
       <div className="hidden sm:flex flex-col mt-16 gap-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full mx-auto max-w-fit">
-          {winners.slice(0, 3).map((winner, index) => (
+          {winners.map((winner, index) => (
             <WinnerCard key={index} {...winner} />
           ))}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 mx-auto max-w-fit gap-16">
+        {/* <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 mx-auto max-w-fit gap-16">
           {winners.slice(3, 5).map((winner, index) => (
             <WinnerCard key={index} {...winner} />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
