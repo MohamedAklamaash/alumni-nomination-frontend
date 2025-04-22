@@ -52,19 +52,36 @@ const FoundationLanding = () => {
     setIsMenuOpen(false);
   };
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);              // change “50” to whatever offset you like :contentReference[oaicite:0]{index=0}
+    };
+    window.addEventListener("scroll", handleScroll);    // listen for scroll :contentReference[oaicite:1]{index=1}
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-800 via-indigo-900 to-gray-900 overflow-hidden relative scroll-smooth">
+    <div className="min-h-screen bg-gradient-to-br from-gray-800 via-indigo-900 to-gray-900 relative scroll-smooth">
       {/* Background Pulse */}
       <div className="absolute top-20 left-20 w-40 h-40 bg-indigo-300 rounded-full filter blur-3xl opacity-20 animate-pulse" />
 
       {/* Header */}
-      <header className="relative z-20 p-6 flex justify-between items-center">
-        <motion.h1
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl font-bold text-white tracking-wide drop-shadow-md"
-        >
+      <header
+        className={`
+          sticky top-0 z-50 p-6 flex justify-between items-center
+          backdrop-blur-md transition-colors duration-300 shadow-lg
+          ${isScrolled
+            ? "bg-gradient-to-br from-gray-800 via-indigo-900 to-gray-900"   // blue glass when scrolled
+            : ""         // original glass at top
+          }
+        `}
+      >        <motion.h1
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="text-4xl font-bold text-white tracking-wide drop-shadow-md"
+      >
           <div className="text-2xl">
             <span className="text-indigo-300">Foundation</span> Day 2025
           </div>
@@ -81,7 +98,7 @@ const FoundationLanding = () => {
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="absolute right-0 mt-36 w-48 bg-white border rounded-xl shadow-lg z-50">
+            <div className="absolute right-0 mt-36 w-48 bg-white backdrop-blur-lg border rounded-xl shadow-xl z-50">
               {pages.map((page, idx) => (
                 <motion.div
                   key={idx}
@@ -94,7 +111,6 @@ const FoundationLanding = () => {
                 </motion.div>
               ))}
               <div className="border-t my-2" />
-              {/* Year toggles in mobile menu */}
               {toggleOptions.map((opt, idx) => (
                 <motion.button
                   key={idx}
@@ -115,7 +131,7 @@ const FoundationLanding = () => {
                 key={idx}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.96 }}
-                className="p-2 rounded-lg bg-indigo-700 text-white cursor-pointer"
+                className="p-2 rounded-lg bg-indigo-700/80 backdrop-blur-sm text-white cursor-pointer"
                 onClick={() => handleNavClick(page.link)}
               >
                 {page.title}
@@ -125,7 +141,7 @@ const FoundationLanding = () => {
               <motion.button
                 key={idx}
                 whileHover={{ scale: 1.03 }}
-                className="p-2 rounded-lg bg-indigo-700 text-white cursor-pointer"
+                className="p-2 rounded-lg bg-indigo-700/80 backdrop-blur-sm text-white cursor-pointer"
                 onClick={() => handleYearToggle(idx)}
               >
                 {opt}
@@ -196,20 +212,20 @@ const FoundationLanding = () => {
       <section className=" relative z-10 bg-white py-10">
         <div className="flex flex-col items-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Highlights Video</h2>
-            <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
-              <iframe
-                src={
-                  currentYear === 0
-                    ? "https://www.youtube.com/embed/oGKBokED8qM"
-                    : "https://www.youtube.com/embed/ZISPz-Ll-vo"
-                }
-                title="Founders Day Video"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </div>
+          <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
+            <iframe
+              src={
+                currentYear === 0
+                  ? "https://www.youtube.com/embed/oGKBokED8qM"
+                  : "https://www.youtube.com/embed/ZISPz-Ll-vo"
+              }
+              title="Founders Day Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
         </div>
       </section>
 
