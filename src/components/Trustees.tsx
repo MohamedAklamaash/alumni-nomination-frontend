@@ -24,7 +24,7 @@ const trusteesData: Trustee[] = [
         description: "Shri L. Gopalakrishnan assumed the role of Managing Trustee in May 2011, emphasizing quality education and the significance of research. He promoted faculty research through initiatives like scholarships for research scholars and the creation of PSG Distinguished Professor Fellowship. Under his leadership, a Center for Excellence was established at PSG College of Technology and PSG Institute of Medical Sciences and Research. Additionally, a hospital was inaugurated at Karadivavi, and collaborations with U.S. and European universities were initiated.",
     },
     {
-        id: 1,
+        id: 10,
         name: "Shri. P. S. Govindaswamy Naidu",
         image: "https://platinum.psgtech.ac.in/assets/images/Govindaswamy.png",
         period: "",
@@ -32,7 +32,7 @@ const trusteesData: Trustee[] = [
         description:"Founder of PSG College of Technology, he was a visionary leader who played a pivotal role in establishing the institution. His commitment to quality education and technical excellence laid the foundation for PSG Tech's legacy.",
     },
     {
-        id: 1,
+        id: 11,
         name: "PSG Venkataswamy Naidu",
         image: "https://platinum.psgtech.ac.in/assets/images/2.png",
         period: "1926 - 1965",
@@ -67,7 +67,7 @@ const trusteesData: Trustee[] = [
     },
     {
         id: 5,
-        name: "Professor G.R. Damodaran",
+        name: "Dr. G.R. Damodaran",
         image: "https://platinum.psgtech.ac.in/assets/images/G-R-DAMODARAN.jpg",
 
         period: "1972 - 1978",
@@ -202,7 +202,7 @@ export default function Trustees() {
                                     className="px-6 pb-6 pt-2 bg-white"
                                 >
                                     <p className="text-gray-700 mb-4">{trustee.description}</p>
-                                    <div className="flex flex-wrap gap-3">
+                                    {/* <div className="flex flex-wrap gap-3">
                                         {trustee.isCurrent && (
                                             <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm">
                                                 Read Full Biography
@@ -211,7 +211,7 @@ export default function Trustees() {
                                         <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm">
                                             View Contributions
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </motion.div>
                             )}
                         </motion.div>
