@@ -18,47 +18,30 @@ const sampleUpdates: Update[] = [
         date: new Date("2025-04-15"),
         title: "Foundation Day Celebrations",
         content:
-            "Join us for the annual Foundation Day celebrations at the main auditorium. Distinguished alumni will be honored during the ceremony.",
-        category: "Event",
+            "Join us for the Foundation Day celebrations on April 25, 2025. The event will include a keynote speech by a distinguished alumnus, followed by various cultural programs and a gala dinner.",
+        category: "Distinguished_Alumni",
     },
     {
         id: "2",
         date: new Date("2025-04-10"),
         title: "New Research Grant Awarded",
         content:
-            "The Department of Computer Science has been awarded a prestigious research grant for AI innovations in healthcare.",
-        category: "Achievement",
+            "The university has been awarded a new research grant for the development of sustainable energy solutions. A seminar will be held on April 20 to discuss the project.",
+        category: "Foundation_Day",
     },
     {
         id: "3",
         date: new Date("2025-04-05"),
         title: "Campus Recruitment Drive",
         content:
-            "Leading tech companies will be conducting campus recruitment drives for final year students from April 10-15.",
-        category: "Placement",
-    },
-    {
-        id: "4",
-        date: new Date("2025-03-28"),
-        title: "International Conference Announcement",
-        content: "PSG Tech will host the International Conference on Emerging Technologies (ICET) from May 15-17, 2025.",
-        category: "Academic",
-    },
-    {
-        id: "5",
-        date: new Date("2025-03-20"),
-        title: "New Laboratory Inauguration",
-        content: "The state-of-the-art Robotics and Automation Laboratory will be inaugurated on April 2, 2025.",
-        category: "Infrastructure",
-    },
+            "We are excited to announce the upcoming campus recruitment drive on April 30, 2025. Several top companies will be participating. Make sure to register in advance.",
+        category: "Foundation_Day",
+    }
 ]
 
 const categoryColors: Record<string, string> = {
-    Event: "bg-indigo-100 text-indigo-800",
-    Achievement: "bg-green-100 text-green-800",
-    Placement: "bg-blue-100 text-blue-800",
-    Academic: "bg-purple-100 text-purple-800",
-    Infrastructure: "bg-orange-100 text-orange-800",
+    Distinguished_Alumni: "bg-indigo-100 text-indigo-800",
+    Foundation_Day: "bg-green-100 text-green-800",
     Default: "bg-gray-100 text-gray-800",
 }
 
