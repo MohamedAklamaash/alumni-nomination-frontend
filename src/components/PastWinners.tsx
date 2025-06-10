@@ -20,9 +20,14 @@ const WinnerCard = ({
   // const navigate = useNavigate();
 
   return (
-    <motion.div className="w-[380px] bg-gray-200 p-6 rounded-md shadow-md relative z-20">
+    <motion.div 
+      className="w-[380px] bg-gray-200 p-6 rounded-md shadow-md relative z-20"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="absolute -top-12 right-5 rounded-md z-30">
-        <img src={profileUrl || "https://placehold.co/80"} height={80} width={80} alt={name} />
+        <img src={profileUrl || "https://placehold.co/80"} height={80} width={80} alt={name} className="rounded-md" />
       </div>
       <div className="flex flex-col justify-start">
         <div
@@ -32,7 +37,7 @@ const WinnerCard = ({
               window.open(profileUrl, "_blank");
             }
           }}
-          >
+        >
           <span className="font-semibold leading-snug text-xl text-gray-800">
             {name}
           </span>
@@ -40,14 +45,14 @@ const WinnerCard = ({
         </div>
         <span className="text-gray-600 mt-3 text-[15px]">{title}</span>
         <span className="text-gray-600 text-[15px]">{company}</span>
-        <span className="text-gray-600 text-[15px]">{qualification}</span>
+        {qualification && <span className="text-gray-600 text-[15px]">{qualification}</span>}
         <span className="font-semibold mt-2 text-blue-700">{degree}</span>
       </div>
     </motion.div>
   );
 };
 
-const winners = [
+const winners2023 = [
   {
     name: "Dr. K. V. Srinivasan",
     title: "Managing Director",
@@ -102,8 +107,11 @@ const winners = [
     company: "Uttarakhand",
     qualification: "",
     degree: "1995 B.E (Electrical and Electronics Engineering)",
-    profileUrl: "https://psgtech.edu/distinalumni/assets/images/2023awardees/Senthil%20Avoodai_new.jpg", // no public image found—please provide if available
+    profileUrl: "https://psgtech.edu/distinalumni/assets/images/2023awardees/Senthil%20Avoodai_new.jpg",
   },
+];
+
+const winners2024 = [
   {
     name: "Mrs. Anandi Ramalingam",
     title: "Information Commissioner",
@@ -154,33 +162,43 @@ const winners = [
   },
 ];
 
-
-
 const PastWinners = () => {
   return (
     <div className="relative bg-gradient-to-bl from-indigo-800 via-blue-900 to-gray-800 min-h-screen px-10 py-12 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.1),transparent_60%)]" />
-      <div>
-        <span className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200">
-          Former Winners
-        </span>
-      </div>
-      <div className="flex flex-col sm:hidden gap-6 mt-16">
-        {winners.map((winner, index) => (
-          <WinnerCard key={index} {...winner} />
-        ))}
-      </div>
-      <div className="hidden sm:flex flex-col mt-16 gap-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full mx-auto max-w-fit">
-          {winners.map((winner, index) => (
+      
+      {/* 2024 Winners Section */}
+      <div className="mb-20">
+        <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200 mb-8">
+          Distinguished Alumni Awardees 2024
+        </h2>
+        <div className="flex flex-col sm:hidden gap-6">
+          {winners2024.map((winner, index) => (
             <WinnerCard key={index} {...winner} />
           ))}
         </div>
-        {/* <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 mx-auto max-w-fit gap-16">
-          {winners.slice(3, 5).map((winner, index) => (
+        <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full mx-auto max-w-fit">
+          {winners2024.map((winner, index) => (
             <WinnerCard key={index} {...winner} />
           ))}
-        </div> */}
+        </div>
+      </div>
+
+      {/* 2023 Winners Section */}
+      <div>
+        <h2 className="text-4xl font-bold bg-clip-text lg:mb-16 text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200 mb-8">
+          Distinguished Alumni Awardees 2023
+        </h2>
+        <div className="flex flex-col sm:hidden gap-6">
+          {winners2023.map((winner, index) => (
+            <WinnerCard key={index} {...winner} />
+          ))}
+        </div>
+        <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full mx-auto max-w-fit">
+          {winners2023.map((winner, index) => (
+            <WinnerCard key={index} {...winner} />
+          ))}
+        </div>
       </div>
     </div>
   );

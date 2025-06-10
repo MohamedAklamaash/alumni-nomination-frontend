@@ -11,7 +11,7 @@ const GuestCard = () => {
   return <div className="flex flex-col rounded-xl p-5 w-full ">
       
       <span className="text-4xl text-white font-bold mb-10 ">
-            Former Chief Guest
+            Chief Guest
           </span>
       <div className="flex flex-col gap-20 lg:flex-row items-center w-full">
 
