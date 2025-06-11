@@ -6,7 +6,7 @@ import { ChevronDown, ChevronUp, User } from "lucide-react"
 
 interface Person {
   name: string
-  title: string
+  title?:string
   period?: string
   image?: string
 }
@@ -23,33 +23,24 @@ interface Trustee {
 
 const visionary: Person = {
   name: "Shri. P. S. Govindaswamy Naidu",
-  title: "Founder",
   image: "https://platinum.psgtech.ac.in/assets/images/Govindaswamy.png",
 }
 
 const founders: Person[] = [
   {
     name: "PSG Venkataswamy Naidu",
-    title: "Founder Trustee",
-    period: "1926 - 1965",
     image: "https://platinum.psgtech.ac.in/assets/images/2.png",
   },
   {
     name: "PSG Rangaswamy Naidu",
-    title: "Managing Trustee",
-    period: "1926 - 1947",
     image: "https://platinum.psgtech.ac.in/assets/images/PSG-RANGASWAMY-NAIDU.jpg",
   },
   {
     name: "PSG Ganga Naidu",
-    title: "Managing Trustee",
-    period: "1947 - 1949",
     image: "https://platinum.psgtech.ac.in/assets/images/PSG-GANGA-NAIDU.jpg",
   },
   {
     name: "PSG Narayanaswamy Naidu",
-    title: "Founder Trustee",
-    period: "1926 - 1938",
     image: "https://platinum.psgtech.ac.in/assets/images/5.png",
   },
 ]
