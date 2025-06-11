@@ -9,6 +9,7 @@ import Principals from "@/components/Principals"
 import PSG_Image from "@/assets/PSG_Medium_Cropped.jpg"
 import { Menu, X } from "lucide-react"
 import Footer from "@/components/Footer"
+import DrDamodaran from "@/components/dr-damodharan"
 
 export default function AboutCollege() {
   const navigate = useNavigate()
@@ -127,6 +128,8 @@ export default function AboutCollege() {
 
       {/* Trustees Section */}
       <Trustees />
+
+      <DrDamodaran/>
 
       {/* Principals Section */}
       <Principals />
