@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 export default function DrDamodaran() {
 
   return (
-    <section className=" px-6 bg-white">
+    <section className=" px-6 pb-5 bg-white">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -13,7 +13,7 @@ export default function DrDamodaran() {
           transition={{ duration: 0.8 }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">Founder and Principal</h2>
+          <h2 className="text-3xl font-bold text-gray-800 mb-8">Founder Principal</h2>
 
           <div className="inline-block">
             <div className="w-48 h-48 mx-auto rounded-full overflow-hidden shadow-lg border-4 border-gray-200 mb-6">

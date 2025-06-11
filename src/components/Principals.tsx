@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { ChevronDown, ChevronUp, GraduationCap } from 'lucide-react'
+import DrDamodaran from "./dr-damodharan"
 
 interface Principal {
     id: number
@@ -121,6 +122,7 @@ export default function Principals() {
                         The academic leaders who have shaped the educational excellence of PSG College of Technology.
                     </p>
                 </motion.div>
+                <DrDamodaran/>
 
                 <div className="space-y-6">
                     {principalsData.map((principal, index) => (
