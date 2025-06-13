@@ -23,7 +23,7 @@ const sampleUpdates: Update[] = [
     },
     {
         id: "2",
-        date: new Date("2025-07-16"),
+        date: new Date("2025-06-13"),
         title: "Last date for submitting the Nomination",
         content: "The final date to submit nominations is July 16, 2025. Ensure all required documents and information are completed and submitted before the deadline.",
         category: "Foundation_Day",
