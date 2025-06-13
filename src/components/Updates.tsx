@@ -21,14 +21,13 @@ const sampleUpdates: Update[] = [
             "Join us for the Foundation Day celebrations on August, 2025. The event will include a keynote speech by a distinguished alumnus, followed by various cultural programs and a gala dinner.",
         category: "Distinguished_Alumni",
     },
-    // {
-    //     id: "2",
-    //     date: new Date("2025-04-10"),
-    //     title: "New Research Grant Awarded",
-    //     content:
-    //         "The university has been awarded a new research grant for the development of sustainable energy solutions. A seminar will be held on April 20 to discuss the project.",
-    //     category: "Foundation_Day",
-    // },
+    {
+        id: "2",
+        date: new Date("2025-07-16"),
+        title: "Last date for submitting the Nomination",
+        content: "The final date to submit nominations is July 16, 2025. Ensure all required documents and information are completed and submitted before the deadline.",
+        category: "Foundation_Day",
+    },
     // {
     //     id: "3",
     //     date: new Date("2025-04-05"),
