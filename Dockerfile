@@ -6,7 +6,7 @@ COPY package.json .
 
 RUN npm install --legacy-peer-deps
 
-COPY .env .
+COPY .prod.env .
 COPY . .
 
 RUN npm run build --production
