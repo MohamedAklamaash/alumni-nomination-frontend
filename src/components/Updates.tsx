@@ -14,18 +14,10 @@ interface Update {
 
 const sampleUpdates: Update[] = [
     {
-        id: "1",
-        date: new Date("2025-04-15"),
-        title: "Foundation Day Celebrations",
-        content:
-            "Join us for the Foundation Day celebrations on August, 2025. The event will include a keynote speech by a distinguished alumnus, followed by various cultural programs and a gala dinner.",
-        category: "Distinguished_Alumni",
-    },
-    {
         id: "2",
         date: new Date("2025-06-13"),
         title: "Last date for submitting the Nomination",
-        content: "The final date to submit nominations is July 16, 2025. Ensure all required documents and information are completed and submitted before the deadline.",
+        content: "The final date to submit nominations is July 16, 2025. Ensure all required documents and information are completed and submitted ",
         category: "Foundation_Day",
     },
     // {
@@ -189,10 +181,6 @@ export default function Updates({ updates = sampleUpdates }: { updates?: Update[
                                                 transition={{ duration: 0.3 }}
                                                 className="mt-4 pt-4 border-t border-gray-100"
                                             >
-                                                <p className="text-gray-700">
-                                                    Additional details about this update would appear here. This could include more information,
-                                                    links to related resources, or contact information for inquiries.
-                                                </p>
                                                 {/* <div className="mt-4 flex gap-2">
                                                     <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
                                                         Learn More
