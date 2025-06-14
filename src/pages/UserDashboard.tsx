@@ -110,7 +110,7 @@ const NominationForm: FC = () => {
     graduationYear: new Date().getFullYear(), relationshipWithNominator: '',
     currentEmployment: '', linkedInProfile: ''
   });
-  const [rollNo, setRollNo] = useState<string>('');
+  let [rollNo, setRollNo] = useState<string>('');
 
   const token = localStorage.getItem('access_token');
   const [userId, setuserId] = useState<string>('')
@@ -175,8 +175,11 @@ const NominationForm: FC = () => {
     let payload: SelfNomination | OtherNomination;
 
     if (nomineeType === 'MYSELF') {
+      rollNo = rollNo ? rollNo : 'N/A';
       payload = { ...base, nomineeType: 'MYSELF', rollNo };
     } else {
+      nominee.rollNo = nominee.rollNo ? nominee.rollNo : 'N/A';
+      nominee.linkedInProfile = nominee.linkedInProfile ? nominee.linkedInProfile : 'N/A';
       payload = { ...base, nomineeType: 'OTHERS', nominee };
     }
 
@@ -218,12 +221,11 @@ const NominationForm: FC = () => {
 
           {nomineeType === 'MYSELF' ? (
             <div>
-              <label className="block mb-1 text-white">Your Roll Number</label>
+              <label className="block mb-1 text-white">Your Roll Number (Optional) </label>
               <input
                 type="text"
                 value={rollNo}
                 onChange={e => setRollNo(e.target.value)}
-                required
                 className="w-full px-4 py-2 rounded bg-[#333A5c] text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
@@ -264,8 +266,8 @@ const NominationForm: FC = () => {
                   <input
                     className="w-full px-4 py-2 rounded bg-[#333A5c] text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={nominee.rollNo}
+                    placeholder="Optional"
                     onChange={e => setNominee({ ...nominee, rollNo: e.target.value })}
-                    required
                   />
                 </div>
                 <div>
@@ -308,9 +310,10 @@ const NominationForm: FC = () => {
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <label className="block mb-1 text-white">LinkedIn Profile</label>
+                  <label className="block mb-1 text-white">Social Media Profile</label>
                   <input
                     type="url"
+                    placeholder="Optional"
                     className="w-full px-4 py-2 rounded bg-[#333A5c] text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={nominee.linkedInProfile}
                     onChange={e => setNominee({ ...nominee, linkedInProfile: e.target.value })}
