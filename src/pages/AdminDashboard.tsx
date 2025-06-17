@@ -21,6 +21,7 @@ interface Answer {
 
 interface Nominee {
   email: string
+  ProfileURL?: string
 }
 
 interface Nomination {
@@ -145,6 +146,126 @@ const AdminDashboard = () => {
     fetchData()
   }, [])
 
+  // // CSV Export Functions
+  // const escapeCSVField = (field: any): string => {
+  //   if (field === null || field === undefined) return ""
+  //   const str = String(field)
+  //   if (str.includes('"') || str.includes(",") || str.includes("\n") || str.includes("\r")) {
+  //     return `"${str.replace(/"/g, '""')}"`
+  //   }
+  //   return str
+  // }
+
+  // const downloadCSV = (data: string, filename: string) => {
+  //   const blob = new Blob([data], { type: "text/csv;charset=utf-8;" })
+  //   const link = document.createElement("a")
+  //   const url = URL.createObjectURL(blob)
+  //   link.setAttribute("href", url)
+  //   link.setAttribute("download", filename)
+  //   link.style.visibility = "hidden"
+  //   document.body.appendChild(link)
+  //   link.click()
+  //   document.body.removeChild(link)
+  //   toast.success(`${filename} downloaded successfully!`)
+  // }
+
+  const exportToCSV = () => {
+    const headers = [
+      "First Name",
+      "Last Name",
+      "Email",
+      "Role",
+      "Phone",
+      "LinkedIn Profile",
+      "Resume URL",
+      "Nominee Type",
+      "Nominated Year",
+      "Nominated Email",
+      "Nominee Profile URL",
+      "Criteria",
+      "Response",
+    ]
+
+    const rows: string[][] = []
+
+    users
+      .filter((user) => user.role !== "ADMIN")
+      .forEach((user) => {
+        if (user.nominations.length === 0) {
+          rows.push([
+            user.firstName,
+            user.lastName || "",
+            user.email,
+            user.role,
+            user.profile?.phone || "",
+            user.profile?.linkedInProfile || "",
+            user.profile?.resumeUrl || "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+          ])
+        } else {
+          user.nominations.forEach((nom) => {
+            if (nom.answers.length === 0) {
+              rows.push([
+                user.firstName,
+                user.lastName || "",
+                user.email,
+                user.role,
+                user.profile?.phone || "",
+                user.profile?.linkedInProfile || "",
+                user.profile?.resumeUrl || "",
+                nom.nomineeType,
+                nom.nominatedYear,
+                nom.nominatedEmail,
+                nom.nominee?.ProfileURL || "",
+                "",
+                "",
+              ])
+            } else {
+              nom.answers.forEach((ans) => {
+                rows.push([
+                  user.firstName,
+                  user.lastName || "",
+                  user.email,
+                  user.role,
+                  user.profile?.phone || "",
+                  user.profile?.linkedInProfile || "",
+                  user.profile?.resumeUrl || "",
+                  nom.nomineeType,
+                  nom.nominatedYear,
+                  nom.nominatedEmail,
+                  nom.nominee?.ProfileURL || "",
+                  ans.criteria.text.replace(/"/g, '""'),
+                  ans.response.replace(/"/g, '""'),
+                ])
+              })
+            }
+          })
+        }
+      })
+
+    const csvContent = [
+      headers.map((header) => `"${header}"`).join(","),
+      ...rows.map((row) => row.map((cell) => `"${cell}"`).join(",")),
+    ].join("\n")
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+    const link = document.createElement("a")
+    const url = URL.createObjectURL(blob)
+    link.setAttribute("href", url)
+    link.setAttribute("download", `admin_dashboard_data_${new Date().toISOString().split("T")[0]}.csv`)
+    link.style.visibility = "hidden"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+
+    toast.success("CSV exported successfully!")
+  }
+
   const filteredUsers = users.filter((user: User) => {
     if (user.role === "ADMIN") return false
 
@@ -210,7 +331,17 @@ const AdminDashboard = () => {
   return (
     <div className="p-6 bg-gray-900 min-h-screen text-white">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+
+          {/* Export Controls */}
+          <button
+            onClick={exportToCSV}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Export Complete Data as CSV
+          </button>
+        </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -244,8 +375,14 @@ const AdminDashboard = () => {
 
         {/* Nomination Stats Table */}
         <div className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden mb-6">
-          <div className="p-4 border-b border-gray-700">
+          <div className="p-4 border-b border-gray-700 flex justify-between items-center">
             <h3 className="text-white font-semibold">Nomination Statistics by Email</h3>
+            <button
+              onClick={exportToCSV}
+              className="px-3 py-1 bg-gray-600 text-white rounded text-xs hover:bg-gray-500"
+            >
+              Export CSV
+            </button>
           </div>
           <div className="p-4">
             <div className="overflow-x-auto">
@@ -409,11 +546,13 @@ const AdminDashboard = () => {
                           <p className="text-sm mb-1">
                             <span className="text-gray-400">Nominated Email:</span> {nom.nominatedEmail}
                           </p>
-                          {nom.nominee?.email && (
-                            <p className="text-sm mb-3">
-                              <span className="text-gray-400">Nominee Email:</span> {nom.nominee.email}
-                            </p>
-                          )}
+                          <a target="_blank" href={`${nom.nominee?.ProfileURL}`} rel="noreferrer">
+                            <span>Profile URL:</span>
+                            <span className="text-blue-400">
+                              {"  "}
+                              {nom.nominee && nom.nominee.ProfileURL}
+                            </span>
+                          </a>
 
                           <div className="w-full">
                             <div className="flex border-b border-gray-600 mb-2">

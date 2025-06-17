@@ -243,7 +243,7 @@ const Profile = () => {
               type="number"
               placeholder="Graduation Year"
               required
-              min={2000}
+              min={1900}
               max={2100}
               className="bg-transparent outline-none w-full text-white"
               value={graduationYear}
@@ -298,7 +298,7 @@ const Profile = () => {
           {/* Resume Upload */}
           <div className="flex flex-col gap-2 px-5 py-2.5 rounded-lg bg-[#333A5c]">
             <label className="text-xs text-gray-400">
-              Upload Resume (PDF/DOC)
+              Upload Resume (PDF)
             </label>
             <input
               type="file"

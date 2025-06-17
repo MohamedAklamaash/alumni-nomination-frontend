@@ -1,9 +1,10 @@
 import React, { useEffect, useState, FC } from "react";
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { BACKEND_URL } from "@/constants/backend";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { LogOut } from "lucide-react";
 
 interface Criteria {
   id: string;
@@ -20,6 +21,7 @@ interface Nominee {
   relationshipWithNominator: string;
   currentEmployment: string;
   linkedInProfile: string;
+  ProfileURL:string | null;
 }
 
 type Answers = Record<string, string>;
@@ -99,6 +101,11 @@ const courses = [
   "PHD",
 ];
 
+type UploadResponse = {
+  fileId: string;
+  url: string;
+};
+
 
 const NominationForm: FC = () => {
   const navigate = useNavigate();
@@ -108,12 +115,45 @@ const NominationForm: FC = () => {
   const [nominee, setNominee] = useState<Nominee>({
     name: '', email: '', phone: '', rollNo: '', course: courses[0],
     graduationYear: new Date().getFullYear(), relationshipWithNominator: '',
-    currentEmployment: '', linkedInProfile: ''
+    currentEmployment: '', linkedInProfile: '',ProfileURL: null
   });
   let [rollNo, setRollNo] = useState<string>('');
-
   const token = localStorage.getItem('access_token');
   const [userId, setuserId] = useState<string>('')
+
+  const [profileUrl, setprofileUrl] = useState<File|null>(null);
+
+  const handleResumeUpload = async (): Promise<string | null> => {
+    if (!profileUrl) return null;
+
+    try {
+      const token = localStorage.getItem("access_token");
+      const formData = new FormData();
+      formData.append("file", profileUrl);
+
+      const response: AxiosResponse<UploadResponse> = await axios.post(
+        `${BACKEND_URL}/pdf/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data.url;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error("Resume upload failed:", error.message);
+      } else {
+        console.error("Unexpected error during resume upload:", error);
+      }
+      toast.error("Failed to upload resume.");
+      return null;
+    }
+  };
+
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -178,6 +218,8 @@ const NominationForm: FC = () => {
       rollNo = rollNo ? rollNo : 'N/A';
       payload = { ...base, nomineeType: 'MYSELF', rollNo };
     } else {
+      const profileURL = await handleResumeUpload() || null;
+      nominee.ProfileURL = profileURL;
       nominee.rollNo = nominee.rollNo ? nominee.rollNo : 'N/A';
       nominee.linkedInProfile = nominee.linkedInProfile ? nominee.linkedInProfile : 'N/A';
       payload = { ...base, nomineeType: 'OTHERS', nominee };
@@ -201,7 +243,21 @@ const NominationForm: FC = () => {
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-200 to-purple-400">
       <div className="bg-slate-900 p-8 rounded-lg shadow-lg w-full max-w-3xl text-indigo-300">
         <ToastContainer />
-        <h2 className="text-3xl text-white font-bold mb-6 text-center">Nominate</h2>
+        <div
+        className=" flex items-center justify-between mb-6"
+        >
+          <h2 className="text-3xl text-white font-bold mb-6 text-center">Nominate</h2>
+          <div 
+          className="flex cursor-pointer "
+          onClick={()=>{
+            localStorage.removeItem('access_token');
+            navigate('/login');
+          }}
+          >
+            <span className="mr-6">Logout</span> 
+            <LogOut />
+          </div>
+        </div>
         <form onSubmit={handleSubmit} className="space-y-6">
 
           <div className="flex flex-col sm:flex-row sm:space-x-8">
@@ -307,6 +363,19 @@ const NominationForm: FC = () => {
                     className="w-full px-4 py-2 rounded bg-[#333A5c] text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     value={nominee.currentEmployment}
                     onChange={e => setNominee({ ...nominee, currentEmployment: e.target.value })}
+                  />
+                </div>
+                
+                {/* Resume Upload */}
+                <div className="flex sm:col-span-2 flex-col w-full gap-2 px-5 py-2.5 rounded-lg bg-[#333A5c]">
+                  <label className="text-xs text-gray-400">
+                    Upload Resume (PDF){" "} (Optinonal)
+                  </label>
+                  <input
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={(e) => setprofileUrl(e.target.files ? e.target.files[0] : null)}
+                    className="bg-transparent text-white"
                   />
                 </div>
                 <div className="sm:col-span-2">
