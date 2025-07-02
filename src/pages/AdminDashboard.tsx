@@ -75,17 +75,17 @@ const AdminDashboard = () => {
       navigate("/login")
       return
     }
-    ; (async () => {
+    ;(async () => {
       try {
         const resp = await axios.get(`${BACKEND_URL}/users/me`, {
           headers: { Authorization: `Bearer ${token}` },
         })
-
         if (resp.data.role !== "ADMIN") {
           toast.error("Only admins can access this page.")
           navigate("/home/dashboard")
         }
       } catch (err) {
+        console.error("Error fetching user profile.", err)
         toast.error("Error fetching user profile.")
         navigate("/login")
       }
@@ -144,46 +144,30 @@ const AdminDashboard = () => {
     }
 
     fetchData()
-  }, [])
-
-  // // CSV Export Functions
-  // const escapeCSVField = (field: any): string => {
-  //   if (field === null || field === undefined) return ""
-  //   const str = String(field)
-  //   if (str.includes('"') || str.includes(",") || str.includes("\n") || str.includes("\r")) {
-  //     return `"${str.replace(/"/g, '""')}"`
-  //   }
-  //   return str
-  // }
-
-  // const downloadCSV = (data: string, filename: string) => {
-  //   const blob = new Blob([data], { type: "text/csv;charset=utf-8;" })
-  //   const link = document.createElement("a")
-  //   const url = URL.createObjectURL(blob)
-  //   link.setAttribute("href", url)
-  //   link.setAttribute("download", filename)
-  //   link.style.visibility = "hidden"
-  //   document.body.appendChild(link)
-  //   link.click()
-  //   document.body.removeChild(link)
-  //   toast.success(`${filename} downloaded successfully!`)
-  // }
+  }, [navigate])
 
   const exportToCSV = () => {
     const headers = [
-      "First Name",
-      "Last Name",
-      "Email",
-      "Role",
-      "Phone",
-      "LinkedIn Profile",
+      "Nominator First Name",
+      "Nominator Last Name",
+      "Nominator Email",
+      "Phone Number",
+      "LinkedIn URL",
       "Resume URL",
-      "Nominee Type",
-      "Nominated Year",
-      "Nominated Email",
+      "Nominee Email",
+      "Nomination Type",
+      "Nomination Year",
       "Nominee Profile URL",
-      "Criteria",
-      "Response",
+      "Criteria 1",
+      "Answer 1",
+      "Criteria 2",
+      "Answer 2",
+      "Criteria 3",
+      "Answer 3",
+      "Criteria 4",
+      "Answer 4",
+      "Criteria 5",
+      "Answer 5",
     ]
 
     const rows: string[][] = []
@@ -196,7 +180,6 @@ const AdminDashboard = () => {
             user.firstName,
             user.lastName || "",
             user.email,
-            user.role,
             user.profile?.phone || "",
             user.profile?.linkedInProfile || "",
             user.profile?.resumeUrl || "",
@@ -206,44 +189,42 @@ const AdminDashboard = () => {
             "",
             "",
             "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
           ])
         } else {
           user.nominations.forEach((nom) => {
-            if (nom.answers.length === 0) {
-              rows.push([
-                user.firstName,
-                user.lastName || "",
-                user.email,
-                user.role,
-                user.profile?.phone || "",
-                user.profile?.linkedInProfile || "",
-                user.profile?.resumeUrl || "",
-                nom.nomineeType,
-                nom.nominatedYear,
-                nom.nominatedEmail,
-                nom.nominee?.ProfileURL || "",
-                "",
-                "",
-              ])
-            } else {
-              nom.answers.forEach((ans) => {
-                rows.push([
-                  user.firstName,
-                  user.lastName || "",
-                  user.email,
-                  user.role,
-                  user.profile?.phone || "",
-                  user.profile?.linkedInProfile || "",
-                  user.profile?.resumeUrl || "",
-                  nom.nomineeType,
-                  nom.nominatedYear,
-                  nom.nominatedEmail,
-                  nom.nominee?.ProfileURL || "",
-                  ans.criteria.text.replace(/"/g, '""'),
-                  ans.response.replace(/"/g, '""'),
-                ])
-              })
+            const row = [
+              user.firstName,
+              user.lastName || "",
+              user.email,
+              user.profile?.phone || "",
+              user.profile?.linkedInProfile || "",
+              user.profile?.resumeUrl || "",
+              nom.nominatedEmail,
+              nom.nomineeType,
+              nom.nominatedYear,
+              nom.nominee?.ProfileURL || "",
+            ]
+
+            // Add up to 5 Q&A pairs
+            for (let i = 0; i < 5; i++) {
+              if (i < nom.answers.length) {
+                const answer = nom.answers[i]
+                row.push(answer.criteria.text.replace(/"/g, '""'))
+                row.push(answer.response.replace(/"/g, '""'))
+              } else {
+                row.push("", "")
+              }
             }
+
+            rows.push(row)
           })
         }
       })
@@ -262,17 +243,14 @@ const AdminDashboard = () => {
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
-
     toast.success("CSV exported successfully!")
   }
 
   const filteredUsers = users.filter((user: User) => {
     if (user.role === "ADMIN") return false
-
     const fullName = `${user.firstName} ${user.lastName || ""}`.toLowerCase()
     const email = user.email.toLowerCase()
     const term = searchTerm.toLowerCase()
-
     return fullName.includes(term) || email.includes(term)
   })
 
@@ -333,8 +311,6 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-
-          {/* Export Controls */}
           <button
             onClick={exportToCSV}
             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -542,7 +518,6 @@ const AdminDashboard = () => {
                               {nom.nominatedYear}
                             </span>
                           </div>
-
                           <p className="text-sm mb-1">
                             <span className="text-gray-400">Nominated Email:</span> {nom.nominatedEmail}
                           </p>
@@ -557,22 +532,22 @@ const AdminDashboard = () => {
                           <div className="w-full">
                             <div className="flex border-b border-gray-600 mb-2">
                               <button
-                                className={`py-2 px-4 text-sm font-medium ${activeTab[nom.id] === "answers"
+                                className={`py-2 px-4 text-sm font-medium ${
+                                  activeTab[nom.id] === "answers"
                                     ? "text-white border-b-2 border-blue-500"
                                     : "text-gray-400 hover:text-white"
-                                  }`}
+                                }`}
                                 onClick={() => setActiveTab({ ...activeTab, [nom.id]: "answers" })}
                               >
                                 Answers
                               </button>
                             </div>
-
                             <div className={activeTab[nom.id] === "answers" ? "block" : "hidden"}>
                               <div className="h-40 overflow-y-auto rounded-md border border-gray-600">
                                 <div className="p-3 space-y-3">
-                                  {nom.answers.map((ans: Answer) => (
+                                  {nom.answers.map((ans: Answer, index: number) => (
                                     <div key={ans.id} className="bg-gray-600 rounded-lg p-3 border border-gray-500">
-                                      <p className="text-sm font-semibold text-gray-200">Criteria:</p>
+                                      <p className="text-sm font-semibold text-gray-200">Criteria {index + 1}:</p>
                                       <p className="text-sm italic mb-2">{ans.criteria.text}</p>
                                       <p className="text-sm font-semibold text-gray-200">Response:</p>
                                       <p className="text-sm">{ans.response}</p>
