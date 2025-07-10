@@ -1,3 +1,4 @@
+import { photos_2023, photos_2024 } from '@/constants/photos_url';
 import { useState, useEffect, useRef } from 'react';
 
 // Define the Photo type for TypeScript
@@ -7,90 +8,24 @@ interface Photo {
   height: number;
 }
 
-const photos: Photo[] = [
-    {
-        src: 'https://placehold.co/120x200/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/200x400/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/400x600/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x700/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/400x400/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/600x200/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 4,
-        height: 3
-    },
-    {
-        src: 'https://placehold.co/600x400/png',
-        width: 1,
-        height: 1
-    }
-];
+// Props interface for PhotoGallery
+interface PhotoGalleryProps {
+  currentYear: number; // 0 for 2024, 1 for 2023
+}
 
-const PhotoGallery: React.FC = () => {
+const PhotoGallery: React.FC<PhotoGalleryProps> = ({ currentYear }) => {
+  // Select photos array based on current year
+  const selectedPhotos = currentYear === 0 ? photos_2024 : photos_2023;
+  
+  // Convert photo URLs to photo objects
+  const photos = selectedPhotos.map((url) => {
+    return {
+      src: url,
+      width: 4,
+      height: 3
+    }
+  });
+
   // State to track window size
   const [windowWidth, setWindowWidth] = useState<number>(
     typeof window !== 'undefined' ? window.innerWidth : 0
@@ -208,7 +143,7 @@ const PhotoGallery: React.FC = () => {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [windowWidth]); // Re-initialize animation when window size changes
+  }, [windowWidth, scrollPositions]); // Re-initialize animation when window size changes
   
   const duplicateImages = (columnImages: Photo[]) => {
     return [...columnImages, ...columnImages];
@@ -219,7 +154,9 @@ const PhotoGallery: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100" />
       
       <div className="relative z-10 w-full sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] mx-auto">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 my-4 sm:my-8 text-center lg:text-left">Photo Gallery</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 my-4 sm:my-8 text-center lg:text-left">
+          Photo Gallery - {currentYear === 0 ? '2024' : '2023'}
+        </h1>
         
         {/* Responsive grid layout */}
         <div className={`grid gap-4 h-[50rem] sm:h-[60rem] overflow-auto scroll-none md:h-[70rem] lg:h-[80rem] 
@@ -229,7 +166,7 @@ const PhotoGallery: React.FC = () => {
           {/* Column 1 - Always visible */}
           <div 
             ref={col1Ref}
-            className=" h-full" 
+            className="overflow-hidden h-full" 
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             <div className="space-y-4 pb-4">
@@ -237,9 +174,12 @@ const PhotoGallery: React.FC = () => {
                 <div key={`col1-${idx}`} className="rounded-lg overflow-hidden shadow-md">
                   <img 
                     src={photo.src} 
-                    alt={`Image ${idx}`} 
+                    alt={`Gallery image ${idx + 1}`} 
                     className="w-full object-cover"
                     loading="lazy"
+                    onError={() => {
+                      console.error('Failed to load image:', photo.src);
+                    }}
                   />
                 </div>
               ))}
@@ -250,7 +190,7 @@ const PhotoGallery: React.FC = () => {
           {windowWidth >= 640 && (
             <div 
               ref={col2Ref}
-              className=" h-full" 
+              className="overflow-hidden h-full" 
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               <div className="space-y-4 pb-4">
@@ -258,9 +198,12 @@ const PhotoGallery: React.FC = () => {
                   <div key={`col2-${idx}`} className="rounded-lg overflow-hidden shadow-md">
                     <img 
                       src={photo.src} 
-                      alt={`Image ${idx}`} 
+                      alt={`Gallery image ${idx + 1}`} 
                       className="w-full object-cover"
                       loading="lazy"
+                      onError={() => {
+                        console.error('Failed to load image:', photo.src);
+                      }}
                     />
                   </div>
                 ))}
@@ -280,9 +223,12 @@ const PhotoGallery: React.FC = () => {
                   <div key={`col3-${idx}`} className="rounded-lg overflow-hidden shadow-md">
                     <img 
                       src={photo.src} 
-                      alt={`Image ${idx}`} 
+                      alt={`Gallery image ${idx + 1}`} 
                       className="w-full object-cover"
                       loading="lazy"
+                      onError={() => {
+                        console.error('Failed to load image:', photo.src);
+                      }}
                     />
                   </div>
                 ))}

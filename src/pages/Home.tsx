@@ -231,7 +231,7 @@ const FoundationLanding = () => {
 
       {/* Photo Gallery */}
       <section ref={winnersRef} id="past-winners">
-        <PhotoGallery />
+        <PhotoGallery currentYear={currentYear} />
       </section>
 
       <Footer />
