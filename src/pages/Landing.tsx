@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { motion, useAnimation } from "framer-motion";
 import CriteriaSection from "@/components/Criteria";
 import PastWinners from "@/components/PastWinners";
 
 const Landing = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const glowControls = useAnimation();
   const criteriaRef = useRef<HTMLElement>(null);
   const winnersRef = useRef<HTMLElement>(null);
@@ -51,10 +51,10 @@ const Landing = () => {
           >
             Past Winners
           </span>
-          <button
+          {/* <button
             onClick={() => navigate("/login")}
             className="px-4 py-1 bg-gradient-to-r from-indigo-400 to-indigo-600 text-white font-semibold rounded-full shadow-md transition-all"
-          >Login</button>
+          >Login</button> */}
         </nav>
       </header>
 

@@ -8,7 +8,12 @@ import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 
 interface Profile {
+  rollNo?: string
   phone?: string
+  course?: string
+  graduationYear?: number
+  companyName?: string
+  designation?: string
   linkedInProfile?: string
   resumeUrl?: string
 }
@@ -23,6 +28,12 @@ interface Nominee {
   email: string
   name?: string
   phone?: string
+  rollNo?: string
+  course?: string
+  graduationYear?: number
+  relationshipWithNominator?: string
+  currentEmployment?: string
+  linkedInProfile?: string
   socialUrl?: string
   ProfileURL?: string
 }
@@ -105,7 +116,7 @@ const AdminDashboard = () => {
           headers: { Authorization: `Bearer ${token}` },
         })
         setUsers(res.data)
-
+        // console.log("res.data in admin dashboard", res.data)
         const nominationRes = await axios.get<NominationStats[]>(`${BACKEND_URL}/admin/nominations`, {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -154,13 +165,24 @@ const AdminDashboard = () => {
       "Nominator First Name",
       "Nominator Last Name",
       "Nominator Email",
+      "Roll Number",
       "Phone Number",
+      "Course",
+      "Graduation Year",
+      "Company Name",
+      "Designation",
       "LinkedIn URL",
       "Resume URL",
       "Nominee Email",
       "Nominee Name",
       "Nominee Phone",
+      "Nominee Roll Number",
+      "Nominee Course",
+      "Nominee Graduation Year",
+      "Nominee Current Employment",
+      "Nominee LinkedIn Profile",
       "Nominee Social URL",
+      "Relationship with Nominator",
       "Nomination Type",
       "Nomination Year",
       "Nominee Profile URL",
@@ -186,9 +208,18 @@ const AdminDashboard = () => {
             user.firstName,
             user.lastName || "",
             user.email,
+            user.profile?.rollNo || "",
             user.profile?.phone || "",
+            user.profile?.course || "",
+            user.profile?.graduationYear?.toString() || "",
+            user.profile?.companyName || "",
+            user.profile?.designation || "",
             user.profile?.linkedInProfile || "",
             user.profile?.resumeUrl || "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -213,13 +244,24 @@ const AdminDashboard = () => {
               user.firstName,
               user.lastName || "",
               user.email,
+              user.profile?.rollNo || "",
               user.profile?.phone || "",
+              user.profile?.course || "",
+              user.profile?.graduationYear?.toString() || "",
+              user.profile?.companyName || "",
+              user.profile?.designation || "",
               user.profile?.linkedInProfile || "",
               user.profile?.resumeUrl || "",
               nom.nominatedEmail,
               nom.nominee?.name || "",
               nom.nominee?.phone || "",
+              nom.nominee?.rollNo || "",
+              nom.nominee?.course || "",
+              nom.nominee?.graduationYear?.toString() || "",
+              nom.nominee?.currentEmployment || "",
+              nom.nominee?.linkedInProfile || "",
               nom.nominee?.socialUrl || "",
+              nom.nominee?.relationshipWithNominator || "",
               nom.nomineeType,
               nom.nominatedYear,
               nom.nominee?.ProfileURL || "",
