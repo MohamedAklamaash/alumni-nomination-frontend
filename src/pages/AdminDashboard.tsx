@@ -21,6 +21,9 @@ interface Answer {
 
 interface Nominee {
   email: string
+  name?: string
+  phone?: string
+  socialUrl?: string
   ProfileURL?: string
 }
 
@@ -155,6 +158,9 @@ const AdminDashboard = () => {
       "LinkedIn URL",
       "Resume URL",
       "Nominee Email",
+      "Nominee Name",
+      "Nominee Phone",
+      "Nominee Social URL",
       "Nomination Type",
       "Nomination Year",
       "Nominee Profile URL",
@@ -197,6 +203,9 @@ const AdminDashboard = () => {
             "",
             "",
             "",
+            "",
+            "",
+            "",
           ])
         } else {
           user.nominations.forEach((nom) => {
@@ -208,6 +217,9 @@ const AdminDashboard = () => {
               user.profile?.linkedInProfile || "",
               user.profile?.resumeUrl || "",
               nom.nominatedEmail,
+              nom.nominee?.name || "",
+              nom.nominee?.phone || "",
+              nom.nominee?.socialUrl || "",
               nom.nomineeType,
               nom.nominatedYear,
               nom.nominee?.ProfileURL || "",

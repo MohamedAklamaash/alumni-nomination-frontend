@@ -83,7 +83,7 @@ const Landing = () => {
             >
               Rooted in Legacy, Rising with Vision.
             </motion.p>
-            <motion.button
+            {/* <motion.button
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 0 10px rgba(147, 197, 253, 0.5)",
@@ -95,7 +95,7 @@ const Landing = () => {
               }
             >
               Nominate Now
-            </motion.button>
+            </motion.button> */}
           </div>
         </div>
       </main>
