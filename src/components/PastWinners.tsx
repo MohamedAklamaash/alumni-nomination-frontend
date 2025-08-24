@@ -1,56 +1,89 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 
-const WinnerCard = ({
-  name,
-  title,
-  company,
-  qualification,
-  degree,
-  profileUrl,
-}: {
+const WinnerCard = ({ name, title, company, qualification, degree, profileUrl }: {
   name: string;
   title: string;
   company: string;
   qualification: string;
   degree: string;
-  profileUrl?: string;
+  profileUrl: string;
 }) => {
-  // const navigate = useNavigate();
-
   return (
-    <motion.div 
-      className="w-[380px] bg-gray-200 p-6 rounded-md shadow-md relative z-20"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <motion.div
+      whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+      className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
     >
-      <div className="absolute -top-12 right-5 rounded-md z-30">
-        <img src={profileUrl || "https://placehold.co/80"} height={80} width={80} alt={name} className="rounded-md" />
+      <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
+        <img
+          src={profileUrl}
+          alt={name}
+          className="w-full h-full object-cover"
+        />
       </div>
-      <div className="flex flex-col justify-start">
-        <div
-          className="flex items-center gap-2 cursor-pointer"
-          onClick={() => {
-            if (profileUrl) {
-              window.open(profileUrl, "_blank");
-            }
-          }}
-        >
-          <span className="font-semibold leading-snug text-xl text-gray-800">
-            {name}
-          </span>
-          {profileUrl && <ExternalLink className="w-4 h-4" />}
-        </div>
-        <span className="text-gray-600 mt-3 text-[15px]">{title}</span>
-        <span className="text-gray-600 text-[15px]">{company}</span>
-        {qualification && <span className="text-gray-600 text-[15px]">{qualification}</span>}
-        <span className="font-semibold mt-2 text-blue-700">{degree}</span>
+      <div className="text-center">
+        <h3 className="text-xl font-bold text-gray-800 mb-2">{name}</h3>
+        <p className="text-gray-600 font-semibold mb-1">{title}</p>
+        <p className="text-gray-500 text-sm mb-2">{company}</p>
+        {qualification && (
+          <p className="text-gray-500 text-sm mb-2">{qualification}</p>
+        )}
+        <span className="text-indigo-600 font-medium text-sm">{degree}</span>
       </div>
     </motion.div>
   );
 };
+
+const winners2025 = [
+  {
+    name: "Mrs. Kavitha Krishnan",
+    title: "Chief Technology Officer",
+    company: "Customer Innovation Services, SAP Labs, Bengaluru, India",
+    qualification: "",
+    degree: "MCA, 1998",
+    profileUrl: "https://media.licdn.com/dms/image/v2/D5603AQH2eVR8rQcHQQ/profile-displayphoto-shrink_800_800/B56ZcwlimgGQAc-/0/1748866837491?e=1758758400&v=beta&t=5LuNeTHzvm9VrGjyMUJSZbwr7ZJ2d2t9qKRYfg9HqRk",
+  },
+  {
+    name: "Mrs. Vanitha Kumar",
+    title: "Senior Vice-President",
+    company: "Software Engineering, Qualcomm Technologies Inc, California, USA",
+    qualification: "",
+    degree: "B.E. Electronics & Communication Engineering, 1994",
+    profileUrl: "https://media.licdn.com/dms/image/v2/C5603AQHdKaprEnxxHw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1637800441183?e=1758758400&v=beta&t=GPizH85l_oViITTuQ-LPBA8N2ySNrIgObrxbhCh6Z08",
+  },
+  {
+    name: "Mr. Lakshmi Narasimha Moorthy K",
+    title: "Co-Founder and CEO",
+    company: "nicheBrains, Hyderabad, India",
+    qualification: "",
+    degree: "B.E. Mechanical Engineering, 1996",
+    profileUrl: "https://media.licdn.com/dms/image/v2/D5603AQHASXufx_9DXQ/profile-displayphoto-crop_800_800/B56ZhrrNkuHUAI-/0/1754153148089?e=1758758400&v=beta&t=ZIz8yk8FdPHJUb3_utN2PrrZgY_hxcX4L4q1NXiPPm4",
+  },
+  {
+    name: "Mr. Srinivasan Ravi",
+    title: "Chairman & Managing Director",
+    company: "Craftsman Automation, Coimbatore, India",
+    qualification: "",
+    degree: "B.E. Mechanical Engineering, 1984",
+    profileUrl: "https://autocomponentsindia.com/wp-content/uploads/2014/01/challenge_1.jpg",
+  },
+  {
+    name: "Mr. Cottalango Leon",
+    title: "Distinguished Engineer",
+    company: "Sony Pictures Imageworks, California, USA",
+    qualification: "",
+    degree: "B.E. Computer Science & Engineering, 1992",
+    profileUrl: "https://media.licdn.com/dms/image/v2/D5603AQFv1cHi6aAUPg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1720022264101?e=1758758400&v=beta&t=wp67OY4kKjQdYqNRj-ACU_0AP4LBMYJbOx5ufvKoloA",
+  },
+  {
+    name: "Mr. Gowthaman Ranganathan",
+    title: "Former Director, Oracle America Inc.",
+    company: "Entrepreneur, Angel Investor, Software Executive, California, USA",
+    qualification: "",
+    degree: "B.E. Production Engineering, 1995",
+    profileUrl: "https://media.licdn.com/dms/image/v2/C5603AQGBvsI0dZPhXQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1523580314625?e=1758758400&v=beta&t=UeRA_HKUxVQsBXXi-ekI1IWxOC74gMosrZsLin10FOs",
+  },
+];
 
 const winners2023 = [
   {
@@ -167,6 +200,23 @@ const PastWinners = () => {
     <div className="relative bg-gradient-to-bl from-indigo-800 via-blue-900 to-gray-800 min-h-screen px-10 py-12 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.1),transparent_60%)]" />
       
+      {/* 2025 Winners Section */}
+      <div className="mb-20">
+        <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200 mb-8">
+          Distinguished Alumni Awardees 2025
+        </h2>
+        <div className="flex flex-col sm:hidden gap-6">
+          {winners2025.map((winner, index) => (
+            <WinnerCard key={index} {...winner} />
+          ))}
+        </div>
+        <div className="hidden sm:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full mx-auto max-w-fit">
+          {winners2025.map((winner, index) => (
+            <WinnerCard key={index} {...winner} />
+          ))}
+        </div>
+      </div>
+
       {/* 2024 Winners Section */}
       <div className="mb-20">
         <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-platinum-300 to-indigo-200 mb-8">

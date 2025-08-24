@@ -8,9 +8,11 @@ import header_img from './header_img.png'
 import psg_logo from './PSG.png'
 import chief_guest_avatar_23 from './ChiefGuest2023.jpg'
 import chief_guest_avatar_24 from './ChiefGuest20242.png'
+import chief_guest_avatar_25 from './shashi_tharoor.png'
 import map from './map.png'
 import invitation_23 from './Invitation2023.png'
 import invitation_24 from './Invitation2024.png'
+import invitation_25 from './../invitation_2025.png'
 
 export const assets = {
     arrow_icon,
@@ -23,7 +25,9 @@ export const assets = {
     psg_logo,
     chief_guest_avatar_23,
     chief_guest_avatar_24,
+    chief_guest_avatar_25,
     map,
     invitation_23,
-    invitation_24
+    invitation_24,
+    invitation_25
 }

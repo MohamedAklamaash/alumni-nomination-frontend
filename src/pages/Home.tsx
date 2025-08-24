@@ -5,6 +5,7 @@ import FormerChiefGuest from "@/components/FormerChiefGuest";
 import Footer from "@/components/Footer";
 import PhotoGallery from "@/components/Gallery";
 import { useChiefGuestContext } from "@/hooks/useChiefGuest";
+import chief_guest_25 from "@/constants/chiefguest2025";
 import chief_guest_24 from "@/constants/chiefguest2024";
 import chief_guest_23 from "@/constants/chiefguest2023";
 import { assets } from "@/assets/assets";
@@ -15,7 +16,7 @@ const pages: { title: string; link: string }[] = [
   { title: "Distinguished Alumni", link: "/distinguishedalumni" },
   { title: "About College", link: "/about-college" },
 ];
-const toggleOptions: string[] = ["2024", "2023"];
+const toggleOptions: string[] = ["2025", "2024", "2023"];
 
 const FoundationLanding = () => {
   const navigate = useNavigate();
@@ -30,7 +31,13 @@ const FoundationLanding = () => {
   const chiefguest = useChiefGuestContext();
 
   useEffect(() => {
-    chiefguest.setGuest(currentYear === 0 ? chief_guest_24 : chief_guest_23);
+    if (currentYear === 0) {
+      chiefguest.setGuest(chief_guest_25);
+    } else if (currentYear === 1) {
+      chiefguest.setGuest(chief_guest_24);
+    } else {
+      chiefguest.setGuest(chief_guest_23);
+    }
   }, [currentYear, chiefguest]);
 
   useEffect(() => {
@@ -197,7 +204,11 @@ const FoundationLanding = () => {
         <div className="flex flex-col items-center w-full">
           <h2 className="text-4xl font-bold p-6">Invitation</h2>
           <img
-            src={currentYear === 0 ? assets.invitation_24 : assets.invitation_23}
+            src={
+              currentYear === 0 ? assets.invitation_25 :
+              currentYear === 1 ? assets.invitation_24 : 
+              assets.invitation_23
+            }
             alt="Invitation"
             className="w-full max-w-4xl"
           />
@@ -212,26 +223,39 @@ const FoundationLanding = () => {
       <section className=" relative z-10 bg-white py-10">
         <div className="flex flex-col items-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Highlights Video</h2>
-          <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
-            <iframe
-              src={
-                currentYear === 0
-                  ? "https://www.youtube.com/embed/oGKBokED8qM"
-                  : "https://www.youtube.com/embed/ZISPz-Ll-vo"
-              }
-              title="Founders Day Video"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-            />
-          </div>
+          {currentYear === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-600 text-lg">Highlights video will be available after Foundation Day 2025</p>
+            </div>
+          ) : (
+            <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
+              <iframe
+                src={
+                  currentYear === 1
+                    ? "https://www.youtube.com/embed/oGKBokED8qM"
+                    : "https://www.youtube.com/embed/ZISPz-Ll-vo"
+                }
+                title="Founders Day Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          )}
         </div>
       </section>
 
       {/* Photo Gallery */}
       <section ref={winnersRef} id="past-winners">
-        <PhotoGallery currentYear={currentYear} />
+        {currentYear === 0 ? (
+          <div className="text-center py-12 bg-white">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">Photo Gallery</h2>
+            <p className="text-gray-600 text-lg">Photo gallery will be available after Foundation Day 2025</p>
+          </div>
+        ) : (
+          <PhotoGallery currentYear={currentYear} />
+        )}
       </section>
 
       <Footer />

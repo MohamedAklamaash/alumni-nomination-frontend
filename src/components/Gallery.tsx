@@ -10,12 +10,37 @@ interface Photo {
 
 // Props interface for PhotoGallery
 interface PhotoGalleryProps {
-  currentYear: number; // 0 for 2024, 1 for 2023
+  currentYear: number; // 0 for 2025, 1 for 2024, 2 for 2023
 }
 
 const PhotoGallery: React.FC<PhotoGalleryProps> = ({ currentYear }) => {
+  if (currentYear === 0) {
+    return (
+      <div className="relative bg-white min-h-screen px-4 sm:px-6 py-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-100" />
+        <div className="relative z-10 w-full sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] mx-auto">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 my-4 sm:my-8 text-center lg:text-left">
+            Photo Gallery - 2025
+          </h1>
+          <div className="text-center py-12">
+            <p className="text-gray-600 text-lg">Photo gallery will be available after Foundation Day 2025</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Select photos array based on current year
-  const selectedPhotos = currentYear === 0 ? photos_2024 : photos_2023;
+  let selectedPhotos;
+  let yearLabel;
+  
+  if (currentYear === 1) {
+    selectedPhotos = photos_2024;
+    yearLabel = '2024';
+  } else {
+    selectedPhotos = photos_2023;
+    yearLabel = '2023';
+  }
   
   // Convert photo URLs to photo objects
   const photos = selectedPhotos.map((url) => {
@@ -155,7 +180,7 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({ currentYear }) => {
       
       <div className="relative z-10 w-full sm:max-w-[90%] md:max-w-[85%] lg:max-w-[80%] mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 my-4 sm:my-8 text-center lg:text-left">
-          Photo Gallery - {currentYear === 0 ? '2024' : '2023'}
+          Photo Gallery - {yearLabel}
         </h1>
         
         {/* Responsive grid layout */}

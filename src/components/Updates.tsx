@@ -14,14 +14,21 @@ interface Update {
 
 const sampleUpdates: Update[] = [
     {
+        id: "1",
+        date: new Date("2025-09-03"),
+        title: "Foundation Day 2025 - Event Day",
+        content: "The Management, Principal, Staff and Students of PSG COLLEGE OF TECHNOLOGY cordially invite you to the FOUNDATION DAY 2025. Chief Guest: Dr. Shashi Tharoor, Honorable Member of Parliament for Thiruvanathapuram, Chairman - Parliamentary Committee on External Affairs, Government of India. Guest of Honour: Shri. D. Lakshminarayanaswamy, Trustee, SNR Sons Charitable Trust, Coimbatore. Shri. L. Gopalakrishnan, Managing Trustee, PSG & Sons' Charities will preside. Event: September 3, 2025 | 4:30 pm at PSG Tech Quadrangle.",
+        category: "Foundation_Day",
+    },
+    {
         id: "2",
-        date: new Date("2025-06-13"),
+        date: new Date("2025-07-16"),
         title: "Last date for submitting the Nomination",
-        content: "The final date to submit nominations is July 16, 2025. Ensure all required documents and information are completed and submitted ",
+        content: "The final date to submit nominations for Distinguished Alumni Awards 2025 is July 16, 2025. Ensure all required documents and information are completed and submitted before the deadline. Late submissions will not be accepted.",
         category: "Foundation_Day",
     },
     // {
-    //     id: "3",
+    //     id: "4",
     //     date: new Date("2025-04-05"),
     //     title: "Campus Recruitment Drive",
     //     content:
