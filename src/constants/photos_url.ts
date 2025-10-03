@@ -33,4 +33,20 @@ export const photos_2023: string[] = [
     "https://res.cloudinary.com/dctlevezd/image/upload/v1752151373/IMG-20250708-WA0019_yrdpqy.jpg",
     "https://res.cloudinary.com/dctlevezd/image/upload/v1752151372/IMG-20250708-WA0010_bbj4qs.jpg"
   ];
-  
+
+export const photos_2025: string[] = [
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464158/Alumni_Nominations_2025/0G9A0256.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464163/Alumni_Nominations_2025/0G9A0268.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464170/Alumni_Nominations_2025/0G9A0247.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464176/Alumni_Nominations_2025/0G9A0327.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464180/Alumni_Nominations_2025/0G9A0220.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464185/Alumni_Nominations_2025/0G9A0194.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464189/Alumni_Nominations_2025/0G9A0223.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464195/Alumni_Nominations_2025/0G9A0385.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464199/Alumni_Nominations_2025/0G9A0392.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464204/Alumni_Nominations_2025/0G9A0350.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464209/Alumni_Nominations_2025/0G9A0378.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464215/Alumni_Nominations_2025/0G9A0371.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464219/Alumni_Nominations_2025/0G9A0288.jpg",
+    "https://res.cloudinary.com/duhkiwuqq/image/upload/v1759464225/Alumni_Nominations_2025/0G9A0301.jpg"
+  ];

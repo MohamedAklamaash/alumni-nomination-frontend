@@ -224,8 +224,15 @@ const FoundationLanding = () => {
         <div className="flex flex-col items-center px-4">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Highlights Video</h2>
           {currentYear === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-600 text-lg">Highlights video will be available after Foundation Day 2025</p>
+            <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
+              <iframe
+                src="https://www.youtube.com/embed/b5JQnzZcF8w"
+                title="Founders Day Video 2025"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
             </div>
           ) : (
             <div className="w-full max-w-4xl aspect-video shadow-lg rounded-xl overflow-hidden">
@@ -248,14 +255,7 @@ const FoundationLanding = () => {
 
       {/* Photo Gallery */}
       <section ref={winnersRef} id="past-winners">
-        {currentYear === 0 ? (
-          <div className="text-center py-12 bg-white">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6">Photo Gallery</h2>
-            <p className="text-gray-600 text-lg">Photo gallery will be available after Foundation Day 2025</p>
-          </div>
-        ) : (
-          <PhotoGallery currentYear={currentYear} />
-        )}
+        <PhotoGallery currentYear={currentYear} />
       </section>
 
       <Footer />
